@@ -17,10 +17,15 @@ class ProjectsController < ApplicationController
       render json: project
     else
       render json: project.errors
+    end
   end
 
   def update
-    
+    if @project.update(project_params)
+      render json: @project
+    else
+      render json: @project.errors
+    end
   end
 
   def destroy
