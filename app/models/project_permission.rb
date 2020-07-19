@@ -4,14 +4,14 @@ class ProjectPermission < ApplicationRecord
 
   validates_uniqueness_of :project, scope: [:user_id]
 
-  def find_users(projectId, role)
-    searchTerm = { "project_associations.project_id" => projectId }
-    searchTerm["project_associations.role"] = role if role
+  def self.find_users(projectId, role)
+    searchTerm = { "project_permissions.project_id" => projectId }
+    searchTerm["project_permissions.role"] = role if role
 
     User.left_outer_joins(:project_permissions).where(searchTerm)
   end
 
-  def add(projectId, role, userId)
+  def self.add(projectId, role, userId)
     self.create(project_id: projectId,
                 user_id:    userId,
                 role:       role)

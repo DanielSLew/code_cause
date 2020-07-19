@@ -8,18 +8,18 @@ class Project < ApplicationRecord
   validates :body, presence: true
 
   def creators
-    ProjectPermissions.find_users(self.id, 'Creator')
+    ProjectPermission.find_users(self.id, 'Creator')
   end
 
   def contributors
-    ProjectPermissions.find_users(self.id, 'Contributor')
+    ProjectPermission.find_users(self.id, 'Contributor')
   end
 
   def add_creator(user)
-    ProjectPermissions.add(self.id, 'Creator', user.id)
+    ProjectPermission.add(self.id, 'Creator', user.id)
   end
 
   def add_contributor(user)
-    ProjectPermissions.add(self.id, 'Contributor', user.id)   
+    ProjectPermission.add(self.id, 'Contributor', user.id)   
   end
 end
