@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     user = user.new(user_params)
     
     if user.save
+      save_session(user)
       render json: user
     else
       render json: user.errors

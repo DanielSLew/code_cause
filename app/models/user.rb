@@ -3,7 +3,9 @@ class User < ApplicationRecord
 
   has_many :project_permissions
   has_many :projects, through: :project_permissions
+  
   has_many :votes
+  has_many :messages
 
   validates :name, length: {minimum: 4}, uniqueness: true
   validates :email, uniqueness: true, 

@@ -1,24 +1,29 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Getting Started:
 
-Things you may want to cover:
+`bundle install` => will install your dependencies
 
-* Ruby version
+`rake db:create` => create your development/test databases
+`rake db:migrate` => create all the tables in your database
+`rake db:seed` => populate the database with data
 
-* System dependencies
 
-* Configuration
+`bundle update` => will install any new dependencies added
 
-* Database creation
+api:
 
-* Database initialization
+routes:
+  - `index` will return all of the resource
+  - `show` will return one of the specified resource
+  - `create` will try to create a new resource
+  - `update` will try to update an existing resource
+  - `destroy` will try to delete an existing resource
 
-* How to run the test suite
+`GET    /api/v1/projects/:id`
+- This means send a `GET` request to `/api/v1/projects/:id` where `:id` is the id of the resource.
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+`rake routes | grep project` => Will show you all the api endpoints for projects
 
-* ...
+`rake routes | grep user` => will show you all the api endpoints for users

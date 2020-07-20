@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_19_173837) do
+ActiveRecord::Schema.define(version: 2020_07_20_143228) do
+
+  create_table "messages", force: :cascade do |t|
+    t.text "body"
+    t.integer "user_id"
+    t.integer "project_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_messages_on_project_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
 
   create_table "project_permissions", force: :cascade do |t|
     t.integer "user_id"
@@ -22,12 +32,23 @@ ActiveRecord::Schema.define(version: 2020_07_19_173837) do
     t.index ["user_id"], name: "index_project_permissions_on_user_id"
   end
 
+  create_table "project_tags", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "tag_id"
+    t.index ["project_id"], name: "index_project_tags_on_project_id"
+    t.index ["tag_id"], name: "index_project_tags_on_tag_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "users", force: :cascade do |t|
@@ -51,8 +72,12 @@ ActiveRecord::Schema.define(version: 2020_07_19_173837) do
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
+  add_foreign_key "messages", "projects"
+  add_foreign_key "messages", "users"
   add_foreign_key "project_permissions", "projects"
   add_foreign_key "project_permissions", "users"
+  add_foreign_key "project_tags", "projects"
+  add_foreign_key "project_tags", "tags"
   add_foreign_key "votes", "projects"
   add_foreign_key "votes", "users"
 end

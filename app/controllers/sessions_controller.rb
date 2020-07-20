@@ -1,24 +1,17 @@
 class SessionsController < ApplicationController
   def create
-    @user = User.where(email: params[:email]).first
+    user = User.where(email: params[:email]).first
 
-    if @user && @user.authenticate(params[:password])
-      save_session
-      successfully_logged(:in)
+    if user && user.authenticate(params[:password])
+      save_session(user)
+      render json: { success: "You have successfully logged in." }
     else
-      flash[:alert] = "There is something wrong with your login credentials."
-      redirect_to login_path
+      render json: { error: "There is something wrong with your login credentials." }
     end
   end
 
   def destroy
     session[:user_id] = nil
-    successfully_logged(:out)
-  end
-
-  private
-
-  def successfully_logged(action)
-    redirect_to root_path, notice: "You've successfully logged #{action}."    
+    render json: { success: "You have successfully logged out." }
   end
 end

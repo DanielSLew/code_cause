@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :update]
+  before_action :set_project, only: [:show, :update, :vote, :remove_vote]
 
   def index
     projects = Project.all
