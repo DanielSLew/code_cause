@@ -33,6 +33,16 @@ class ProjectsController < ApplicationController
     render json: { message: 'Project Deleted!' }
   end
 
+  def create_tag
+    tag = Tag.new(params.permit(:name))
+
+    if tag.save
+      render json: tag
+    else
+      render json: tag.errors
+    end
+  end
+
   private
 
   def set_project

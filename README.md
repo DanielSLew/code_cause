@@ -1,6 +1,6 @@
 # README
 
-Getting Started:
+### Getting Started:
 
 `bundle install` => will install your dependencies
 
@@ -9,16 +9,20 @@ Getting Started:
 `rake db:seed` => populate the database with data
 
 
-`bundle update` => will install any new dependencies added
+### Updating
 
-api:
+`bundle update` => will install any new dependencies added
+`rake db:migrate` => will add any newly added tables
+`rake db:seed` => will add any newly added seed data
+
+### api
 
 routes:
-  - `index` will return all of the resource
-  - `show` will return one of the specified resource
-  - `create` will try to create a new resource
-  - `update` will try to update an existing resource
-  - `destroy` will try to delete an existing resource
+  - `index` will return all of the resource (ie all projects)
+  - `show` will return one of the specified resource (ie one project)
+  - `create` will try to create a new resource (ie create a new project)
+  - `update` will try to update an existing resource (ie update a project)
+  - `destroy` will try to delete an existing resource (ie delete a project)
 
 `GET    /api/v1/projects/:id`
 - This means send a `GET` request to `/api/v1/projects/:id` where `:id` is the id of the resource.
@@ -27,3 +31,7 @@ routes:
 `rake routes | grep project` => Will show you all the api endpoints for projects
 
 `rake routes | grep user` => will show you all the api endpoints for users
+
+`rake routes | grep message` => will show you all the api endpoints for messages
+
+`rake routes | grep vote` => will show you all the api endpoints for votes
