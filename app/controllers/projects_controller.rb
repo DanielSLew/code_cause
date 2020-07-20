@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
     render json: projects
   end
 
-  def show
+  def showDoes
     render json: @project
   end
 
