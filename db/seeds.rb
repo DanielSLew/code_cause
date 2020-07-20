@@ -7,14 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 9.times do |i|
-  Project.create(
-    name: "Project-#{i}",
-    description: "This is a description for project#{i}",
-    body: "This is the body for project #{i}"
-  )
-end
-
-9.times do |i|
   User.create(
     name: "User-#{i}",
     email: "user#{i}@email.com",
@@ -22,5 +14,12 @@ end
     bio: "Bio for user#{i}",
     social: "Socials for user#{i}",
     organization: "Organization#{i}"
+  )
+
+  Project.create(
+    name: "Project-#{i}",
+    description: "This is a description for project#{i}",
+    body: "This is the body for project #{i}",
+    creator: i
   )
 end

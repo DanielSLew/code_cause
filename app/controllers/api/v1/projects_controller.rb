@@ -1,4 +1,4 @@
-class ProjectsController < ApplicationController
+class Api::V1::ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :update, :vote, :remove_vote]
 
   def index
