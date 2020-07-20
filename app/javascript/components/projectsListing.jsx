@@ -6,7 +6,6 @@ const ProjectsListing = () => {
   function parseJSON(response) {
     return response.json();
   }
-
   function get_projects() {
     return fetch("/api/v1/projects", {
       accept: "application/json",
