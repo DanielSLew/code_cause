@@ -1,38 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import Project from "../components/project";
 
 const ProjectsListing = () => {
   const [projects, setProjects] = useState([]);
+  useEffect(() => {
+    const getProjects = async () => {
+      const response = await fetch("/api/v1/projects", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+      const json = await response.json();
+      setProjects(json);
+    };
 
-  function parseJSON(response) {
-    return response.json();
-  }
-
-  function get_projects() {
-    return fetch("/api/v1/projects", {
-      accept: "application/json",
-    }).then(parseJSON);
-  }
-
-  const getProjects = async () => {
-    const response = await fetch("/api/v1/projects", {
-      headers: { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       }
-    });
-    const json = await response.json();
-    console.log(json);
-  };
+    getProjects();
+  }, []);
 
   return (
     <div>
       <h1>Projects!</h1>
-      {projects &&
-        projects.map((project) => {
-          console.log(project);
-        })}
-      <button onClick={getProjects}> GET ASYNC PROJECTS </button>
-      <button onClick={get_projects}> GET FETCH PROJECTS </button>
+      <ul>
+        {projects &&
+          projects.map((project) => {
+            return <Project project={project} key={project.id} />;
+          })}
+      </ul>
+      {/* <button onClick={getProjects}> GET ASYNC PROJECTS </button> */}
     </div>
   );
 };
