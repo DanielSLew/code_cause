@@ -1,16 +1,16 @@
 import React from "react";
+import Layout from "../components/layout";
 import { Link } from "react-router-dom";
 
-console.log("ran");
-const Test = () => (
-  <div>
+const HomePage = () => (
+  <Layout>
     <h1>This is a test!</h1>
     <div>
       <Link to="/projects" role="button">
         View Projects
       </Link>
     </div>
-  </div>
+  </Layout>
 );
 
-export default Test;
+export default HomePage;
