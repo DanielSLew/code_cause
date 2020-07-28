@@ -1,8 +1,10 @@
 class ProjectPermission < ApplicationRecord
+  ROLES = ['Creator', 'Contributor']
   belongs_to :project
   belongs_to :user
   
   validates_uniqueness_of :project, scope: [:user_id]
+  validates :role, inclusion: { in: ROLES }
 
   def self.find_users(projectId, role=nil)
     search_term = { "project_permissions.project_id" => projectId }

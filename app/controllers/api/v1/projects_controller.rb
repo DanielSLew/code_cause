@@ -1,13 +1,18 @@
 class Api::V1::ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :update, :vote, :remove_vote]
+  before_action :set_project, only: [:show, :update]
 
   def index
-    projects = Project.all
+    projects = Project.all_with_tags_votes
     render json: projects
   end
 
-  def showDoes
-    render json: @project
+  def show
+    render json: { 
+      **@project.as_json, 
+      contributors: @project.contributors,
+      creators: @project.creators,
+      votes: @project.votes
+    }
   end
 
   def create
@@ -31,16 +36,6 @@ class Api::V1::ProjectsController < ApplicationController
   def destroy
     @project.destroy
     render json: { message: 'Project Deleted!' }
-  end
-
-  def create_tag
-    tag = Tag.new(params.permit(:name))
-
-    if tag.save
-      render json: tag
-    else
-      render json: tag.errors
-    end
   end
 
   private

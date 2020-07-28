@@ -6,9 +6,9 @@ Rails.application.routes.draw do
       resources :projects, except: [:new, :edit] do
         resources :votes, only: [:create, :destroy]
         resources :messages, except: [:new, :edit]
-        post 'create_tag'
       end
       resources :users, except: [:new, :edit]
+      resources :tags, only: [:create, :update]
     end
   end
 

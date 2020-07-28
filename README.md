@@ -11,9 +11,8 @@
 
 ### Updating
 
-`bundle update` => will install any new dependencies added
-`rake db:migrate` => will add any newly added tables
-`rake db:seed` => will add any newly added seed data
+`bundle install` => will install any new dependencies added
+`rake db:reset` => will delete db, create db, migrate, and add new seed data
 
 ### api
 
@@ -31,6 +30,8 @@ routes:
 `rake routes | grep project` => Will show you all the api endpoints for projects
 
 `rake routes | grep user` => will show you all the api endpoints for users
+
+`rake routes | grep tag` => will show you all the api endpoints for tags
 
 `rake routes | grep message` => will show you all the api endpoints for messages
 

@@ -12,6 +12,14 @@ class Project < ApplicationRecord
   validates :description, length: { minimum: 10 }
   validates :body, presence: true
 
+  # Returns projects w/ votes and tags as array of vote objects
+  # TODO: See if possible to return only the vote count instead of array of objs
+  def self.all_with_tags_votes
+    Project.includes(:tags, :votes)
+           .select('projects.*, COUNT(*) as tags, COUNT(*) as votes')
+           .group('projects.id')
+  end
+
   def creators
     ProjectPermission.find_users(self.id, 'Creator')
   end

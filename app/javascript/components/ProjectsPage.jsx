@@ -41,7 +41,6 @@ const ProjectsPage = () => {
       const json = await response.json();
       setProjects(json);
     };
-
     getProjects();
   }, []);
 
