@@ -11,7 +11,8 @@ class Api::V1::ProjectsController < ApplicationController
       **@project.as_json, 
       contributors: @project.contributors,
       creators: @project.creators,
-      votes: @project.votes
+      votes: @project.votes,
+      tags: @project.tags
     }
   end
 
