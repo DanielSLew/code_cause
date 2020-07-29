@@ -1,33 +1,27 @@
 class Api::V1::TagsController < ApplicationController
   def create
-    user = user.new(user_params)
+    tag = tag.new(tag_params)
     
-    if user.save
-      save_session(user)
-      render json: user
+    if tag.save
+      render json: tag
     else
-      render json: user.errors
+      render json: tag.errors
     end
   end
 
   def update
-    user = User.find(params[:id])
+    tag = tag.find(params[:id])
 
-    if user.update(user_params)
-      render json: user
+    if tag.update(tag_params)
+      render json: tag
     else
-      render json: user.errors
+      render json: tag.errors
     end
-  end
-
-  def destroy
-    @user.destroy
-    render json: { message: 'Account Removed!' }
   end
 
   private
 
-  def user_params
-    params.permit(:name, :body, :description)
+  def tag_params
+    params.permit(:name, :category)
   end
 end

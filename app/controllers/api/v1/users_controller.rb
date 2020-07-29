@@ -1,5 +1,4 @@
 class Api::V1::UsersController < ApplicationController
-
   def create
     user = user.new(user_params)
     

@@ -1,4 +1,6 @@
 class Api::V1::MessagesController < ApplicationController
+  # TODO: Not currently implemented in the DB
+
   before_action :set_message, only: [:update, :destroy]
 
   def index

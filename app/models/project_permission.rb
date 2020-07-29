@@ -1,5 +1,6 @@
 class ProjectPermission < ApplicationRecord
   ROLES = ['Creator', 'Contributor']
+  
   belongs_to :project
   belongs_to :user
   

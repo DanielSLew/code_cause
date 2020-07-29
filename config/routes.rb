@@ -3,10 +3,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      
       resources :projects, except: [:new, :edit] do
         resources :votes, only: [:create, :destroy]
         resources :messages, except: [:new, :edit]
       end
+
       resources :users, except: [:new, :edit]
       resources :tags, only: [:create, :update]
     end
