@@ -28,19 +28,22 @@ describe "users api", type: :request do
   end
 
   context "show" do
-    let!(:users) { create_users(SAMPLE_USER_COUNT) }
+    let!(:users) { create_projects_users_tags_votes(2) }
 
     describe "existing user" do
       before do
-        get "/api/#{version}/users/1"
+        get "/api/#{version}/users/2"
       end
 
       it "returns status code success" do
         expect(response).to have_http_status(:success)
       end
 
-      it "returns a user object" do
-        expect(JSON.parse(response.body)['email']).to be_truthy
+      it "returns a user object with created and contributing" do
+        user = JSON.parse(response.body)
+        expect(user['email']).to be_truthy
+        expect(user['created'].first['body']).to be_truthy
+        expect(user['contributing'].first['body']).to be_truthy
       end
     end
 

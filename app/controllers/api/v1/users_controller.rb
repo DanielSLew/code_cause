@@ -9,7 +9,11 @@ class Api::V1::UsersController < ApplicationController
     if !@user
       render json: {}, status: :not_found
     else
-      render json: @user
+      render json: {
+        **@user.as_json,
+        created: @user.created,
+        contributing: @user.contributing
+      }
     end
   end
 
