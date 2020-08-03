@@ -17,9 +17,7 @@ describe "users api", type: :request do
         get "/api/#{version}/users"
       end
 
-      it "returns status code success" do
-        expect(response).to have_http_status(:success)
-      end
+      it { expect(response).to have_http_status(:success) }
 
       it "returns all users" do
         expect(User.count).to eq SAMPLE_USER_COUNT
@@ -35,11 +33,9 @@ describe "users api", type: :request do
         get "/api/#{version}/users/2"
       end
 
-      it "returns status code success" do
-        expect(response).to have_http_status(:success)
-      end
+      it { expect(response).to have_http_status(:success) }
 
-      it "returns a user object with created and contributing" do
+      it "returns a user object with created and contributing projects" do
         user = JSON.parse(response.body)
         expect(user['email']).to be_truthy
         expect(user['created'].first['body']).to be_truthy
@@ -52,9 +48,7 @@ describe "users api", type: :request do
         get "/api/#{version}/users/1000"
       end
 
-      it "returns status code error" do
-        expect(response).to have_http_status(:not_found)
-      end
+      it { expect(response).to have_http_status(:not_found) }
     end
   end
 
@@ -64,9 +58,7 @@ describe "users api", type: :request do
         post "/api/#{version}/users", params: user_params(1)
       end
 
-      it "returns status code success" do
-        expect(response).to have_http_status(:created)
-      end
+      it { expect(response).to have_http_status(:created) }
 
       it "adds user to database" do
         expect(User.count).to eq 1
@@ -87,9 +79,7 @@ describe "users api", type: :request do
         post "/api/#{version}/users", params: {}
       end
 
-      it "returns status code error" do
-        expect(response).to have_http_status(:bad_request)
-      end
+      it { expect(response).to have_http_status(:bad_request) }
 
       it "does not add user to database" do
         expect(User.count).to eq 0
@@ -111,9 +101,7 @@ describe "users api", type: :request do
             params: { email: new_email, password: user_params(1)[:password] }
       end
 
-      it "returns status code success" do
-        expect(response).to have_http_status(:success)
-      end
+      it { expect(response).to have_http_status(:success) }
 
       it "returns updated user" do
         expect(JSON.parse(response.body)['email']).to eq new_email
@@ -125,9 +113,7 @@ describe "users api", type: :request do
         put "/api/#{version}/users/1", params: { email: 'email' }
       end
 
-      it "returns status code error" do
-        expect(response).to have_http_status(:bad_request)
-      end
+      it { expect(response).to have_http_status(:bad_request) }
 
       it "returns an error object" do
         expect(JSON.parse(response.body)['email']).to eq ["address is invalid."]
@@ -150,9 +136,7 @@ describe "users api", type: :request do
         delete "/api/#{version}/users/1"
       end
 
-      it "returns a status code success" do
-        expect(response).to have_http_status(:success)
-      end
+      it { expect(response).to have_http_status(:success) }
 
       it "returns a success message" do
         expect(JSON.parse(response.body)['message']).to be_truthy
@@ -168,9 +152,7 @@ describe "users api", type: :request do
         delete "/api/#{version}/users/1000"
       end
 
-      it "returns a status code error" do
-        expect(response).to have_http_status(:not_found)
-      end
+      it { expect(response).to have_http_status(:not_found) }
 
       it "does not remove user from database" do
         expect(User.count).to eq 1

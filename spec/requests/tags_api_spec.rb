@@ -7,16 +7,14 @@ RSpec.configure do |c|
 end
 
 describe "tags api", type: :request do
-  
+
   context "create" do
     describe "valid params" do
       before do
         post "/api/#{version}/tags", params: { name: 'Logo', category: 'skill' }
       end
 
-      it "returns status created" do
-        expect(response).to have_http_status(:created)
-      end
+      it { expect(response).to have_http_status(:created) }
 
       it "saves to database" do
         expect(Tag.count).to eq 1
@@ -36,9 +34,7 @@ describe "tags api", type: :request do
         post "/api/#{version}/tags", params: { name: '', category: 'skillz' }
       end
 
-      it "returns error status" do
-        expect(response).to have_http_status(:bad_request)
-      end
+      it { expect(response).to have_http_status(:bad_request) }
 
       it "returns error object" do
         expect(JSON.parse(response.body)['category']).to eq ["is not included in the list"]

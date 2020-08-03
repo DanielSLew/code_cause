@@ -22,9 +22,7 @@ describe "projects api", type: :request do
       expect(JSON.parse(response.body)).to be_an_instance_of Array
     end
 
-    it "returns status code 200" do
-      expect(response).to have_http_status(:success)
-    end
+    it { expect(response).to have_http_status(:success) }
 
     it "returns tags and votes in project object" do
       project = JSON.parse(response.body).first
@@ -45,9 +43,7 @@ describe "projects api", type: :request do
         expect(JSON.parse(response.body)).to be_an_instance_of Hash
       end
 
-      it "returns status code 200" do
-        expect(response).to have_http_status(:success)
-      end
+      it { expect(response).to have_http_status(:success) }
 
       it "returns tags, votes, creators, contributors" do
         project = JSON.parse(response.body)
@@ -73,9 +69,7 @@ describe "projects api", type: :request do
         post "/api/#{version}/projects", params: project_params(SAMPLE_PROJECT_NUM + 1)
       end
 
-      it "returns a created status" do
-        expect(response).to have_http_status(:created)
-      end
+      it { expect(response).to have_http_status(:created) }
 
       it "creates a project" do
         expect(Project.count).to eq SAMPLE_PROJECT_NUM + 1
@@ -92,9 +86,7 @@ describe "projects api", type: :request do
         post "/api/#{version}/projects", params: {}
       end
 
-      it "returns an error status" do
-        expect(response).to have_http_status(:bad_request)
-      end
+      it { expect(response).to have_http_status(:bad_request) }
 
       it "does not create a project" do
         expect(Project.count).to eq SAMPLE_PROJECT_NUM
@@ -113,9 +105,7 @@ describe "projects api", type: :request do
         put "/api/#{version}/projects/1", params: { body: 'this is an updated body' }
       end
 
-      it "returns an success status" do
-        expect(response).to have_http_status(:success)
-      end
+      it { expect(response).to have_http_status(:success) }
 
       it "returns the updated project" do
         expect(JSON.parse(response.body)['body']).to eq 'this is an updated body'
@@ -128,9 +118,7 @@ describe "projects api", type: :request do
         put "/api/#{version}/projects/1", params: { body: '' }
       end
 
-      it "returns an error status" do
-        expect(response).to have_http_status(:bad_request)
-      end
+      it { expect(response).to have_http_status(:bad_request) }
 
       it "does not update the project" do
         expect(Project.find(1).body).not_to eq ''
@@ -156,9 +144,7 @@ describe "projects api", type: :request do
         delete "/api/#{version}/projects/1"
       end
 
-      it "returns an success status" do
-        expect(response).to have_http_status(:success)
-      end
+      it { expect(response).to have_http_status(:success) }
 
       it "removes project from database" do
         expect(Project.count).to eq SAMPLE_PROJECT_NUM - 1
