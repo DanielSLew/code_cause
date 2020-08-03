@@ -1,23 +1,25 @@
 class Api::V1::TagsController < ApplicationController
   def create
-    tag = tag.new(tag_params)
+    tag = Tag.new(tag_params)
     
     if tag.save
-      render json: tag
+      render json: tag, status: :created
     else
-      render json: tag.errors
+      render json: tag.errors, status: :bad_request
     end
   end
 
-  def update
-    tag = tag.find(params[:id])
+  # Is updating neccessary?
+  
+  # def update
+  #   tag = Tag.find(params[:id])
 
-    if tag.update(tag_params)
-      render json: tag
-    else
-      render json: tag.errors
-    end
-  end
+  #   if tag.update(tag_params)
+  #     render json: tag
+  #   else
+  #     render json: tag.errors
+  #   end
+  # end
 
   private
 

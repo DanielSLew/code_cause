@@ -8,13 +8,17 @@ class Api::V1::ProjectsController < ApplicationController
   end
 
   def show
-    render json: { 
-      **@project.as_json, 
-      contributors: @project.contributors,
-      creators: @project.creators,
-      votes: @project.votes,
-      tags: @project.tags
-    }
+    if !@project
+      render json: {}, status: :not_found
+    else
+      render json: { 
+        **@project.as_json, 
+        contributors: @project.contributors,
+        creators: @project.creators,
+        votes: @project.votes,
+        tags: @project.tags
+      }
+    end
   end
 
   def create
@@ -28,7 +32,9 @@ class Api::V1::ProjectsController < ApplicationController
   end
 
   def update
-    if @project.update(project_params)
+    if !@project
+      render json: {}, status: :not_found
+    elsif @project.update(project_params)
       render json: @project
     else
       render json: @project.errors, status: :bad_request
@@ -36,14 +42,22 @@ class Api::V1::ProjectsController < ApplicationController
   end
 
   def destroy
-    @project.destroy
-    render json: { message: 'Project Deleted!' }
+    if !@project
+      render json: {}, status: :not_found
+    else
+      @project.destroy
+      render json: { message: 'Project Deleted!' }
+    end
   end
 
   private
 
   def set_project
-    @project = Project.find(params[:id])    
+    begin
+      @project = Project.find(params[:id])
+    rescue
+      @project = nil
+    end
   end
 
   def project_params

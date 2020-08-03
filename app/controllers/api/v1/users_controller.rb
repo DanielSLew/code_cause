@@ -1,33 +1,58 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :set_user, only: [:show, :update, :destroy]
+
+  def index
+    render json: User.all
+  end
+
+  def show
+    if !@user
+      render json: {}, status: :not_found
+    else
+      render json: @user
+    end
+  end
+
   def create
-    user = user.new(user_params)
+    user = User.new(user_params)
     
     if user.save
-      save_session(user)
-      render json: user
+      render json: user, status: :created
     else
-      render json: user.errors
+      render json: user.errors, status: :bad_request
     end
   end
 
   def update
-    user = User.find(params[:id])
-
-    if user.update(user_params)
-      render json: user
+    if !@user
+      render json: {}, status: :not_found
+    elsif @user.update(user_params)
+      render json: @user
     else
-      render json: user.errors
+      render json: @user.errors, status: :bad_request
     end
   end
 
   def destroy
-    @user.destroy
-    render json: { message: 'Account Removed!' }
+    if !@user
+      render json: {}, status: :not_found
+    else
+      @user.destroy
+      render json: { message: 'Account Removed!' }
+    end
   end
 
   private
 
+  def set_user
+    begin
+      @user = User.find(params[:id])
+    rescue
+      @user = nil
+    end
+  end
+
   def user_params
-    params.permit(:name, :body, :description)
+    params.permit(:name, :email, :password, :gravatar_url, :bio, :social, :organization)
   end
 end

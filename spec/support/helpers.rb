@@ -1,5 +1,10 @@
 module Helpers
   TAG_CATEGORIES = ['cause', 'skill', 'type']
+  VERSION = 'v1'
+
+  def version
+    VERSION
+  end
 
   def user_params(id)
     { name: "User#{id}",
@@ -39,5 +44,11 @@ module Helpers
     end
 
     Project.first.add_contributor(User.second)
+  end
+
+  def create_users(num)
+    num.times do |num|
+      User.create!(user_params_full(num))
+    end
   end
 end
