@@ -1,4 +1,9 @@
 require 'rails_helper'
+require './spec/support/helpers'
+
+RSpec.configure do |c|
+  c.include Helpers
+end
 
 RSpec.describe Vote, type: :model do
   describe "Associations" do
@@ -8,8 +13,8 @@ RSpec.describe Vote, type: :model do
 
   describe "Validations" do
     it "can create a vote with valid project and user" do
-      user = User.create!(name: "User", email: "a@b.c", password: "testpass")
-      project = Project.create!(name: 'Test', body: 'test', description: '1234567890')
+      user = User.create!(user_params(1))
+      project = Project.create!(project_params(1))
       project.votes.create(user_id: user.id)
 
       expect(project.votes.size).to eq 1
@@ -17,8 +22,8 @@ RSpec.describe Vote, type: :model do
     end
 
     it "won't let a user vote twice on a project" do
-      user = User.create!(name: "User", email: "a@b.c", password: "testpass")
-      project = Project.create!(name: 'Test', body: 'test', description: '1234567890')
+      user = User.create!(user_params(1))
+      project = Project.create!(project_params(1))
       
       project.votes.create(user_id: user.id)
       project.votes.create(user_id: user.id)
@@ -27,9 +32,9 @@ RSpec.describe Vote, type: :model do
     end
 
     it "will let different users votes on the same project" do
-      user1 = User.create!(name: "User1", email: "a1@b.c", password: "testpass")
-      user2 = User.create!(name: "User2", email: "a2@b.c", password: "testpass")
-      project = Project.create!(name: 'Test', body: 'test', description: '1234567890')
+      user1 = User.create!(user_params(1))
+      user2 = User.create!(user_params(2))
+      project = Project.create!(project_params(1))
       
       project.votes.create(user_id: user1.id)
       project.votes.create(user_id: user2.id)

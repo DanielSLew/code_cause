@@ -1,5 +1,6 @@
+require 'byebug'
 class Api::V1::ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :update]
+  before_action :set_project, only: [:show, :update, :destroy]
 
   def index
     projects = Project.all_with_tags_votes
@@ -20,9 +21,9 @@ class Api::V1::ProjectsController < ApplicationController
     project = Project.new(project_params)
     
     if project.save
-      render json: project
+      render json: project, status: :created
     else
-      render json: project.errors
+      render json: project.errors, status: :bad_request
     end
   end
 
@@ -30,7 +31,7 @@ class Api::V1::ProjectsController < ApplicationController
     if @project.update(project_params)
       render json: @project
     else
-      render json: @project.errors
+      render json: @project.errors, status: :bad_request
     end
   end
 

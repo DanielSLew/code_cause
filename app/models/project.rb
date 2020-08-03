@@ -1,11 +1,11 @@
 class Project < ApplicationRecord
   has_many :project_permissions
-  has_many :users, through: :project_permissions
+  has_many :users, through: :project_permissions, dependent: :destroy
 
   has_many :project_tags
-  has_many :tags, through: :project_tags
+  has_many :tags, through: :project_tags, dependent: :destroy
 
-  has_many :votes
+  has_many :votes, dependent: :destroy
   has_many :messages
 
   validates :name, length: { minimum: 3 }

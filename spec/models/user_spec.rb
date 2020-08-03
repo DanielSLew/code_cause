@@ -1,12 +1,11 @@
 require "rails_helper"
+require './spec/support/helpers'
+
+RSpec.configure do |c|
+  c.include Helpers
+end
 
 RSpec.describe User, :type => :model do
-  def project_params(id)
-    { name: "Test#{id}",
-      description: 'This is a test description',
-      body: 'This is a test body' }
-  end
-
   describe "Associations" do
     it { should have_many :projects }
     it { should have_many :messages }
@@ -15,21 +14,17 @@ RSpec.describe User, :type => :model do
 
   
   subject(:user1_min_bio) {
-    described_class.new(name: 'Test',
-                        email: 'test@test.com',
-                        password: 'testpass')
+    described_class.new(user_params(1))
   }
 
   subject(:user1_full_bio) {
-    described_class.new(name: 'Test',
-                        email: 'test@test.com',
-                        password: 'testpass',
-                        bio: "Hi, I'm a test case",
-                        social: 'These are my socials',
-                        organization: 'Test Inc.')
+    described_class.new(user_params_full(1))
   }
 
   describe "validations" do
+    it { should validate_uniqueness_of :name }
+    it { should validate_uniqueness_of :email }
+
     it "is valid with valid attributes" do
       expect(user1_min_bio).to be_valid
     end
@@ -60,16 +55,13 @@ RSpec.describe User, :type => :model do
       user1_full_bio.save
       expect(User.count).to eq 1
     end
-
-    it { should validate_uniqueness_of :name }
-    it { should validate_uniqueness_of :email }
   end
 
   describe '#created' do
     it "returns projects that have the user as a creator" do
       project1 = Project.create!(project_params(1))
       project2 = Project.create!(project_params(2))
-      user = User.create!(name: "User", email: "a@b.c", password: "testpass")
+      user = User.create!(user_params(1))
 
       project1.add_creator(user)
       project2.add_creator(user)
@@ -82,7 +74,7 @@ RSpec.describe User, :type => :model do
     it "returns projects that have the user as a contributor" do
       project1 = Project.create!(project_params(1))
       project2 = Project.create!(project_params(2))
-      user = User.create!(name: "User", email: "a@b.c", password: "testpass")
+      user = User.create!(user_params(1))
 
       project1.add_contributor(user)
       project2.add_contributor(user)

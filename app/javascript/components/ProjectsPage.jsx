@@ -40,6 +40,9 @@ const ProjectsPage = () => {
       });
       const json = await response.json();
       setProjects(json);
+      const response1 = await fetch("api/v1/projects/1");
+      const json1 = await response1.json();
+      debugger;
     };
     getProjects();
   }, []);

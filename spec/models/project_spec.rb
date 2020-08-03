@@ -1,11 +1,11 @@
 require "rails_helper"
+require './spec/support/helpers'
+
+RSpec.configure do |c|
+  c.include Helpers
+end
 
 RSpec.describe Project, :type => :model do
-  def user_params(id)
-    { name: "User#{id}",
-    email: "user#{id}@email.com",
-    password: "testpass" }
-  end
 
   describe "Associations" do
     it { should have_many(:users) }
@@ -14,11 +14,7 @@ RSpec.describe Project, :type => :model do
     it { should have_many(:tags) }
   end
 
-  subject {
-    Project.create(name: 'Test',
-                  description: 'This is a test description',
-                  body: 'This is a test body')
-  }
+  subject { Project.create(project_params(1)) }
 
   describe "validations" do
     it { expect(subject).to be_valid }
@@ -54,9 +50,7 @@ RSpec.describe Project, :type => :model do
     let(:skill_tag) { Tag.create(name: 'CSS', category: 'skill') }
     let(:type_tag) { Tag.create(name: 'Blog', category: 'type') }
     let(:cause_tag) { Tag.create(name: 'Research', category: 'cause') }
-    let(:project2) { Project.create(name: 'Test2',
-                                    description: 'This is a test description',
-                                    body: 'This is a test body')}
+    let(:project2) { Project.create(project_params(2)) }
     it { expect(subject.tags.size).to eq 0 }
 
     context "add" do
