@@ -1,21 +1,24 @@
-import React from "react";
-import Header from "../components/header";
+import React, { useState, useContext } from "react";
+import Header from "./header";
+import Modal from "./modal";
 import styled from "styled-components";
 import { getColor } from "../helpers";
+import { ModalContext } from '../contexts/modalContext';
 
 const StyleTemplate = styled.main`
-  width: 1000px;
-  margin: 0 auto;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
     sans-serif, Apple Color Emoji, Segoe UI Emoji;
   color: ${getColor("dark")};
 `;
 
 const Layout = (props) => {
+  const { modal } = useContext(ModalContext);
+
   return (
     <>
-      <Header />
-      <StyleTemplate>{props.children}</StyleTemplate>
+        {modal && <Modal/>}
+        <Header/>
+        <StyleTemplate>{props.children}</StyleTemplate>
     </>
   );
 };

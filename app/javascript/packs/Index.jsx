@@ -6,10 +6,15 @@ import React from 'react';
 import {render} from 'react-dom';
 import PropTypes from 'prop-types';
 import App from "../components/App";
+import { UserProvider } from '../contexts/userContext'
 
 document.addEventListener('DOMContentLoaded', () => {
   render(
-    <App />,
+    (
+      <UserProvider>
+        <App />
+      </UserProvider>
+    ),
     document.body.appendChild(document.createElement('div')),
   )
-})
+});

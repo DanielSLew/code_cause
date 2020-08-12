@@ -1,31 +1,43 @@
+require 'jwt'
+require 'byebug'
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  skip_before_action :verify_authenticity_token
+  # before_action :require_login
 
-  # TODO: Figure out flow of authentication btwn Rails/React
-  
-  # def current_user
-  #   @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  # end
+  def logged_in?
+    !!session_user
+  end
 
-  # def logged_in?
-  #   !!current_user
-  # end
+  def require_login
+    render json: {alert: 'Please Login'}, status: :unauthorized unless logged_in?
+  end
 
-  # def require_user
-  #   if !logged_in?
-  #     render json: { alert: "Must be logged in to do that." }
-  #   end
-  # end
+  def auth_header
+    request.headers['Authorization']
+  end
 
-  # def same_user(user)
-  #   if current_user != user
-  #     render json: { alert: "You are not authorized to do that." }
-  #   end
-  # end
+  def decoded_token
+    if auth_header
+      token = auth_header.split(' ')[1]
+      begin
+        JWT.decode(token, 'my_secret', true, algorithm: 'HS256')
+      rescue JWT::DecodeError
+        []
+      end
+    end
+  end
 
-  private
+  def session_user
+    decoded_hash = decoded_token
+    if !decoded_hash.empty?
+      user_id = decoded_hash[0]['user_id']
+      @user = User.find_by(id: user_id)
+    else
+      nil
+    end
+  end
 
-  def save_session(user)
-    session[:used_id] = user.id
+  def encode_token(payload)
+    JWT.encode(payload, 'my_secret')
   end
 end

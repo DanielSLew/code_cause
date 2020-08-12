@@ -3,6 +3,8 @@ import Layout from "./layout";
 import styled from "styled-components";
 import Project from "./project";
 import { getColor } from "../helpers";
+import { ModalProvider } from '../contexts/modalContext';
+
 
 const ListingSpace = styled.div`
   margin-top: 4vh;
@@ -40,38 +42,37 @@ const ProjectsPage = () => {
       });
       const json = await response.json();
       setProjects(json);
-      const response1 = await fetch("api/v1/projects/1");
-      const json1 = await response1.json();
-      debugger;
     };
     getProjects();
   }, []);
 
   return (
-    <Layout>
-      <ListingSpace>
-        <section className="tag-section">
-          <aside className="worker-tags tags">
-            <p>Filter By Skill Set</p>
-            {/* WE'LL LIST OUT TAGS FOR EACH WORKER TYPE NEEDED HERE  */}
-          </aside>
-          <aside className="project-tags tags">
-            <p>Filter By Project Type</p>
-            {/* WE'LL LIST OUT TAGS FOR EACH PROJECT TYPE NEEDED HERE  */}
-          </aside>
-        </section>
-        <section className="listing-section">
-          <h1 className="listing-title">{projects.length} Projects!</h1>
-          <ul>
-            {projects &&
-              projects.map((project) => {
-                return <Project project={project} key={project.id} />;
-              })}
-          </ul>
-        </section>
-      </ListingSpace>
-      {/* <button onClick={getProjects}> GET ASYNC PROJECTS </button> */}
-    </Layout>
+    <ModalProvider>
+      <Layout>
+        <ListingSpace>
+          <section className="tag-section">
+            <aside className="worker-tags tags">
+              <p>Filter By Skill Set</p>
+              {/* WE'LL LIST OUT TAGS FOR EACH WORKER TYPE NEEDED HERE  */}
+            </aside>
+            <aside className="project-tags tags">
+              <p>Filter By Project Type</p>
+              {/* WE'LL LIST OUT TAGS FOR EACH PROJECT TYPE NEEDED HERE  */}
+            </aside>
+          </section>
+          <section className="listing-section">
+            <h1 className="listing-title">{projects.length} Projects!</h1>
+            <ul>
+              {projects &&
+                projects.map((project) => {
+                  return <Project project={project} key={project.id} />;
+                })}
+            </ul>
+          </section>
+        </ListingSpace>
+        {/* <button onClick={getProjects}> GET ASYNC PROJECTS </button> */}
+      </Layout>
+    </ModalProvider>
   );
 };
 

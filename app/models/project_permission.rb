@@ -23,7 +23,7 @@ class ProjectPermission < ApplicationRecord
 
   private
 
-  def self.find(model, id_type, id, role=nil)
+  def self.find(model, id_type, id, role)
     search_term = { "project_permissions.#{id_type}_id" => id }
     search_term["project_permissions.role"] = role if role
 
