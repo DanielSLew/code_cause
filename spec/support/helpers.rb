@@ -31,7 +31,7 @@ module Helpers
     { name: "tag#{id}", category: TAG_CATEGORIES.sample}
   end
 
-  def create_projects_users_tags_votes(num)
+  def create_projects_users_tags_votes(num=2)
     num.times do |num|
       project = Project.create!(project_params(num))
       user = User.create!(user_params(num))

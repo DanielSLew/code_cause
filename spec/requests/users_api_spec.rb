@@ -65,12 +65,16 @@ describe "users api", type: :request do
       end
 
       it "returns a user object" do
-        user = JSON.parse(response.body)
+        user = JSON.parse(response.body)['user']
 
         expect(user['id']).to eq 1
         expect(user['email']).to be_truthy
         expect(user['name']).to be_truthy
         expect(user['password']).not_to be_truthy
+      end
+
+      it "returns a jwt token" do
+        expect(JSON.parse(response.body)['jwt'].length).to be > 10
       end
     end
 
