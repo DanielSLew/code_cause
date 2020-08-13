@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     if auth_header
       token = auth_header.split(' ')[1]
       begin
-        JWT.decode(token, 'my_secret', true, algorithm: 'HS256')
+        JWT.decode(token, secret_key, true, algorithm: 'HS256')
       rescue JWT::DecodeError
         []
       end
@@ -38,6 +38,13 @@ class ApplicationController < ActionController::Base
   end
 
   def encode_token(payload)
-    JWT.encode(payload, 'my_secret')
+    byebug
+    JWT.encode(payload, secret_key)
+  end
+
+  private
+
+  def secret_key
+    Rails.application.credentials.secret_key
   end
 end
