@@ -16,7 +16,7 @@ class Api::V1::AuthorizationController < ApplicationController
     if @user
       render json: user_with_projects
     else
-      render json: {alert: 'No user logged in'}, status: :unauthorized
+      render json: {alert: 'No user logged in'}, status: :not_found
     end
   end
 

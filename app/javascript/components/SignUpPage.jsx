@@ -37,7 +37,8 @@ function SignUpPage() {
     .then(res => res.json())
     .then(data => {
       console.log(data);
-      if (data.error) { 
+      if (data.error) {
+          setIsLoading(false);
           // handle error message
       } else {
         localStorage.setItem('token', data.jwt);
@@ -52,11 +53,25 @@ function SignUpPage() {
   }
 
   const disableSignup = () => {
-    const f = formFields;
-    return !(f.password.length >= VALID_PASSWORD_LENGTH && 
-             f.name.length >= VALID_USERNAME_LENGTH &&
-             f.email.match(VALID_EMAIL_REGEX) &&
-             f.passwordConfirm === f.password) || isLoading;
+    return !(validPassword() && validUsername() &&
+             validEmail() && passwordsMatch()) || 
+             isLoading;
+  }
+
+  const validPassword = () => {
+    return formFields.password.length >= VALID_PASSWORD_LENGTH;
+  }
+
+  const validUsername = () => {
+    return formFields.name.length >= VALID_USERNAME_LENGTH ; 
+  }
+
+  const validEmail = () => {
+    return formFields.email.match(VALID_EMAIL_REGEX);
+  }
+
+  const passwordsMatch = () => {
+    return formFields.passwordConfirm === formFields.password;
   }
 
   if (user.id) {
@@ -71,6 +86,7 @@ function SignUpPage() {
             placeholder="Enter username..."
             label="Username"
             type="text"
+            valid={validUsername()}
             fn={handleFormFieldChange}
           />
           <Input 
@@ -79,6 +95,7 @@ function SignUpPage() {
             placeholder="example@example.com..."
             label='Email'
             type="email"
+            valid={validEmail()}
             fn={handleFormFieldChange}
           />
           <TextBox 
@@ -94,6 +111,7 @@ function SignUpPage() {
             placeholder="Enter your organization..."
             label='Organization'
             type="text"
+            valid={true}
             fn={handleFormFieldChange}
           />
           <Input 
@@ -102,6 +120,7 @@ function SignUpPage() {
             placeholder="Enter password..."
             label='Password'
             type="password"
+            valid={validPassword()}
             fn={handleFormFieldChange}
           />
           <Input 
@@ -110,11 +129,12 @@ function SignUpPage() {
             placeholder="Confirm your password..."
             label='Confirm password'
             type="password"
+            valid={passwordsMatch()}
             fn={handleFormFieldChange}
           />
           <Button
             value="submit"
-            content="Login"
+            content="Sign Up"
             disabled={disableSignup()}
             fn={handleSubmit}
           />

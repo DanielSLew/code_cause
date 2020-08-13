@@ -52,7 +52,7 @@ const Button = ({
   selected,
   disabled
 }) => {
-  if (disabled) bgColor = getColor("lightgrey");
+  if (disabled) bgColor = getColor('error');
   return (
     <StyledButton
       onClick={fn}

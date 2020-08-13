@@ -33,7 +33,8 @@ function Login() {
     .then(res => res.json())
     .then(data => {
       console.log(data);
-      if (data.error) { 
+      if (data.error) {
+        setIsLoading(false);
           // handle error message
       } else {
         localStorage.setItem('token', data.jwt);
@@ -51,9 +52,16 @@ function Login() {
     setUsername(e.target.value);
   }
 
+  const validPassword = () => {
+    return password.length >= VALID_PASSWORD_LENGTH;
+  }
+
+  const validUsername = () => {
+    return username.length >= VALID_USERNAME_LENGTH; 
+  }
+
   const disableLogin = () => {
-    return !(password.length >= VALID_PASSWORD_LENGTH && 
-             username.length >= VALID_USERNAME_LENGTH) || isLoading;
+    return !(validUsername() && validPassword()) || isLoading;
   }
 
   if (user.id) {
@@ -68,6 +76,7 @@ function Login() {
             placeholder="Enter username..."
             label="Username"
             type="text"
+            valid={validUsername()}
             fn={handleUsernameChange}
           />
           <Input 
@@ -76,6 +85,7 @@ function Login() {
             placeholder="Enter password..."
             label='Password'
             type="password"
+            valid={validPassword()}
             fn={handlePasswordChange}
           />
           <Button

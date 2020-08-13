@@ -71,7 +71,7 @@ describe "authorization api", type: :request do
         get "/api/#{version}/auto_login", headers: headers
       end
 
-      it { expect(response).to have_http_status(:unauthorized) }
+      it { expect(response).to have_http_status(:not_found) }
 
       it "returns an alert object" do
         expect(JSON.parse(response.body)['alert']).to match('No user logged in')        

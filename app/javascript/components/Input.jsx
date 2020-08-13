@@ -19,6 +19,7 @@ const StyledInput = styled.input`
   padding-bottom: 2px;
   border: 1px solid ${getColor("lightBorder")};
   border-radius: 4px;
+  background-color: ${(props) => props.bgColor};
   transition: 0.2s all;
   ::placeholder {
     margin-left: 6px;
@@ -31,7 +32,9 @@ const StyledInput = styled.input`
   }
 `;
 
-const Input = ({ placeholder, label, id, fn, type, name }) => {
+const Input = ({ placeholder, label, id, fn, type, name, valid }) => {
+  let invalidInput;
+  if (!valid) invalidInput = getColor('error');
   id ||
     console.warn(
       "Styled Input requires an id string to match the label with the input "
@@ -48,6 +51,7 @@ const Input = ({ placeholder, label, id, fn, type, name }) => {
         onBlur={fn}
         placeholder={placeholder || "Placeholder text"}
         type={type}
+        bgColor={invalidInput || getColor('white')}
       />
     </StyledLabel>
   );
