@@ -38,7 +38,6 @@ class ApplicationController < ActionController::Base
   end
 
   def encode_token(payload)
-    byebug
     JWT.encode(payload, secret_key)
   end
 
