@@ -3,7 +3,7 @@ import Header from "./header";
 import Modal from "./modal";
 import styled from "styled-components";
 import { getColor } from "../helpers";
-import { ModalContext } from '../contexts/modalContext';
+import { ModalContext, ModalProvider } from '../contexts/modalContext';
 
 const StyleTemplate = styled.main`
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
@@ -16,9 +16,9 @@ const Layout = (props) => {
 
   return (
     <>
-        {modal && <Modal/>}
-        <Header/>
-        <StyleTemplate>{props.children}</StyleTemplate>
+      {modal && <Modal/>}
+      <Header/>
+      <StyleTemplate>{props.children}</StyleTemplate>
     </>
   );
 };

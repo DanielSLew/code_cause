@@ -32,7 +32,7 @@ const Header = () => {
   if (user.id) {
     return (
       <NavContainer>
-        <button onClick={handleLogout}>Logout</button>
+        <Button content='Logout' fn={handleLogout} />
         <h1 style={{color: 'white'}}>Welcome {user.name}</h1>
       </NavContainer>
     )
@@ -42,11 +42,11 @@ const Header = () => {
         <Button 
           fn={() => handleFormModal('LoginPage')}
           content='Login'
-        >Login</Button>
+        />
         <Button 
           fn={() => handleFormModal('SignUpPage')}
           content='Sign Up'
-        >Sign Up</Button>
+        />
       </NavContainer>
     )
   }
