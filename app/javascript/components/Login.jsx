@@ -1,11 +1,15 @@
 import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { UserContext } from '../contexts/userContext';
-import { ModalContext } from '../contexts/modalContext';
-import { VALID_PASSWORD_LENGTH, VALID_USERNAME_LENGTH } from '../helpers';
-import Input from './Input';
-import Button from './button';
-import UserForm from './userForm';
+
+import { UserContext } from 'contexts/userContext';
+import { ModalContext } from 'contexts/modalContext';
+
+import { VALID_PASSWORD_LENGTH, VALID_USERNAME_LENGTH } from 'helpers/validations';
+
+import Input from 'components/Input';
+import Button from 'components/button';
+
+import UserForm from 'layouts/userForm';
 
 function Login() {
   const { user, setUser } = useContext(UserContext);

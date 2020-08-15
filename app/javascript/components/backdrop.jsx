@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { fadeIn, fadeOut } from "../anims";
+
+import { fadeIn, fadeOut } from "helpers/anims";
 
 const BackDropStyle = styled.div`
   display: flex;

@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { getColor } from "../helpers";
+
+import { getColor } from "helpers/style";
+
 const ListItem = styled.li`
   background-color: ${getColor("white")};
   width: 30rem;

@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from "react";
-import Routes from "../routes/Index";
-import { UserContext } from '../contexts/userContext';
+
+import Routes from "routes/Index";
+import { UserContext } from 'contexts/userContext';
 
 const App = (props) => {
   const { user, setUser } = useContext(UserContext);

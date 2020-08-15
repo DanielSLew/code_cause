@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Layout from "./layout";
 import styled from "styled-components";
-import Project from "./project";
-import { getColor } from "../helpers";
-import { ModalProvider } from '../contexts/modalContext';
+
+import { getColor } from "helpers/style";
+import { ModalProvider } from 'contexts/modalContext';
+
+import Layout from "layouts/layout";
+import Project from "components/project";
 
 
 const ListingSpace = styled.div`

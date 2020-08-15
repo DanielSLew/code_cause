@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import { fadeIn, fadeOut, slideUp, slideDown } from "../anims";
-import { ModalContext } from '../contexts/modalContext';
 import { X } from "react-feather";
-import Button from "./button";
-import Input from "./Input";
-import { getColor } from "../helpers";
-import Backdrop from "./backdrop";
+
+import { fadeIn, fadeOut, slideUp, slideDown } from "helpers/anims";
+import { getColor } from "helpers/style";
+
+import { ModalContext } from 'contexts/modalContext';
+
+import Button from "components/button";
+import Input from "components/Input";
+import Backdrop from "components/backdrop";
 
 const WarnBox = styled.div`
   position: fixed;

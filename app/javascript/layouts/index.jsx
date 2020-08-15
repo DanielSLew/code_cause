@@ -1,9 +1,12 @@
 import React, { useState, useContext } from "react";
-import Header from "./header";
-import Modal from "./modal";
 import styled from "styled-components";
-import { getColor } from "../helpers";
-import { ModalContext, ModalProvider } from '../contexts/modalContext';
+
+import { getColor } from "helpers/style";
+
+import { ModalContext, ModalProvider } from 'contexts/modalContext';
+
+import Header from "layouts/header";
+import Modal from "components/modal";
 
 const StyleTemplate = styled.main`
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,

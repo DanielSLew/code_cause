@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { getColor } from "../helpers";
+
+import { getColor } from "helpers/style";
 
 const StyledLabel = styled.label`
   display: flex;

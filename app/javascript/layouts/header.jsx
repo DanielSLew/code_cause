@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import { UserContext } from '../contexts/userContext';
-import { ModalContext } from '../contexts/modalContext';
 
-import LoginPage from './LoginPage';
-import SignUpPage from './SignUpPage';
+import { UserContext } from 'contexts/userContext';
+import { ModalContext } from 'contexts/modalContext';
 
-import Button from './button';
+import Login from 'components/Login';
+import SignUp from 'components/SignUp';
+
+import Button from 'components/button';
 
 const NavContainer = styled.nav`
   height: 6rem;

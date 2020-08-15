@@ -1,14 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { UserContext } from '../contexts/userContext';
-import { ModalContext } from '../contexts/modalContext';
+
+import { UserContext } from 'contexts/userContext';
+import { ModalContext } from 'contexts/modalContext';
 import { VALID_PASSWORD_LENGTH, 
          VALID_USERNAME_LENGTH,
-         VALID_EMAIL_REGEX } from '../helpers';
-import Input from './Input';
-import Button from './button';
-import TextBox from './textbox';
-import UserForm from './userForm';
+         VALID_EMAIL_REGEX } from 'helpers/validations';
+
+import UserForm from 'layouts/userForm';
+
+import Input from 'components/Input';
+import Button from 'components/button';
+import TextBox from 'components/textbox';
 
 function SignUpPage() {
   const { user, setUser } = useContext(UserContext);
