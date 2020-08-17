@@ -7,7 +7,6 @@ import ProjectPage from "pages/Project";
 import HomePage from "pages/Home";
 import UserPage from "pages/User";
 
-
 // Set up individual routes paths here
 // Example:
 
@@ -18,9 +17,8 @@ const Routes = () => (
       <Route path="/projects" exact component={ProjectsPage} />
       <Route path="/project" exact component={ProjectPage} />
       <Route path="/users" exact component={UserPage} />
-
     </Switch>
   </Router>
 );
 
-export default Routes
+export default Routes;

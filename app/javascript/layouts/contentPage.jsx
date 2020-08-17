@@ -16,7 +16,7 @@ const StyledContentPage = styled.div`
 const ContentSpace = styled.div`
   width: ${(props) => props.width};
   margin: 0;
-  grid-column: 1/4;
+  grid-column: 3/4;
   grid-row: 1;
 `;
 

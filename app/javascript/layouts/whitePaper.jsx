@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { getColor } from "helpers/style";
 
 const Paper = styled.div`
+  grid-column: 3/4;
   background-color: ${getColor("white")};
   border: 1px solid ${getColor("lightBorder")};
   border-radius: 4px;
@@ -61,12 +62,12 @@ const Paper = styled.div`
   }
 `;
 
-const WhitePaper = ({ title, fields=[] }) => {
-
+const WhitePaper = ({ title, fields = [] }) => {
   return (
     <Paper>
       <h2 className="paper-title">{title}</h2>
-      // {fields.map((field) => {
+      //{" "}
+      {fields.map((field) => {
         return (
           <div key={field.id} className={field.type}>
             <h3
@@ -79,7 +80,7 @@ const WhitePaper = ({ title, fields=[] }) => {
             <p className="response editable">{field.content}</p>
           </div>
         );
-       })}
+      })}
     </Paper>
   );
 };

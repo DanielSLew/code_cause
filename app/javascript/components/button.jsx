@@ -20,9 +20,7 @@ export const StyledButton = styled.button`
   :hover {
     box-shadow: 5px 5px 3px -3px rgba(89, 89, 89, 0.3);
   }
-  /* :focus {
-    box-shadow: 5px 5px 3px -3px rgba(89, 89, 89, 0.3);
-  } */
+
   .button-bar-icon {
     height: 40px;
     width: 40px;
@@ -129,9 +127,9 @@ const Button = ({
   border,
   radius,
   selected,
-  disabled
+  disabled,
 }) => {
-  if (disabled) bgColor = getColor('error');
+  if (disabled) bgColor = getColor("error");
   return (
     <StyledButton
       onClick={fn}
