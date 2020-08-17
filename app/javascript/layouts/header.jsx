@@ -25,7 +25,7 @@ const Header = () => {
   }
 
   const handleFormModal = (page) => {
-    const formType = page === 'LoginPage' ? LoginPage : SignUpPage;
+    const formType = page === 'Login' ? Login : SignUp;
     setModalContent({ content: formType })
     toggleModal();
   }
@@ -41,11 +41,11 @@ const Header = () => {
     return (
       <NavContainer>
         <Button 
-          fn={() => handleFormModal('LoginPage')}
+          fn={() => handleFormModal('Login')}
           content='Login'
         />
         <Button 
-          fn={() => handleFormModal('SignUpPage')}
+          fn={() => handleFormModal('SignUp')}
           content='Sign Up'
         />
       </NavContainer>

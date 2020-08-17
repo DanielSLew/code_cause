@@ -5,11 +5,12 @@ import { MessageSquare, Menu, List, Users } from "react-feather";
 import { slideFromLeft, slideOutLeft } from "helpers/anims";
 import { getColor } from "helpers/style";
 
-import Chat from "components/chat";
-import Index from "components/index";
-import Contributors from "components/contributors";
+// import Chat from "components/chat";
+// import Index from "components/index";
+// import Contributors from "components/contributors";
 import Button from "components/button";
 import TabMenu from "components/tabMenu";
+import Tab from "components/tab";
 
 const SideBar = styled.div`
   width: ${(props) => props.width};
@@ -84,17 +85,17 @@ const Drawer = ({ width }) => {
             {
               value: "chat",
               tabContent: <MessageSquare />,
-              render: <Chat />,
+              render: <Tab type="Chat" />,
             },
             {
               value: "index",
               tabContent: <List value="index" />,
-              render: <Index />,
+              render: <Tab type="Index" />,
             },
             {
               value: "contributors",
               tabContent: <Users value="contributors" />,
-              render: <Contributors />,
+              render: <Tab type="Contributors" />,
             },
           ]}
         />

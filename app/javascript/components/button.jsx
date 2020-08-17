@@ -27,7 +27,6 @@ export const StyledButton = styled.button`
     height: 40px;
     width: 40px;
   }
-
   & > * {
     pointer-events: none;
   }
@@ -36,6 +35,85 @@ export const StyledButton = styled.button`
     top: 6rem;
     left: 0;
     grid-column: 3/4;
+  }
+  &.tabButton {
+    color: ${getColor("secondary")};
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: none;
+    border-left: none;
+    :hover {
+      background-color: #182533;
+      color: ${getColor("lightBorder")};
+      box-shadow: none;
+    }
+    &.selected {
+      color: ${getColor("dark")};
+      background-color: ${getColor("white")};
+    }
+    &.selected:hover {
+      color: ${getColor("dark")};
+      background-color: ${getColor("white")};
+    }
+  }
+
+  &.stepper-tab-button {
+    background-color: ${getColor("dark")};
+    color: ${getColor("secondary")};
+    border: 1px solid ${getColor("secondary")};
+    :hover:enabled {
+      background-color: #182533;
+      color: ${getColor("lightBorder")};
+      box-shadow: none;
+    }
+    :focus:enabled {
+      background-color: #182533;
+      color: ${getColor("lightBorder")};
+      box-shadow: none;
+    }
+    :disabled {
+      color: ${getColor("darkgrey")};
+      border: 1px solid ${getColor("darkgrey")};
+      box-shadow: none;
+    }
+  }
+  &.primary {
+    border: 1px solid ${getColor("primaryLight")};
+    background-color: ${getColor("primaryBG")};
+    color: ${getColor("primary")};
+    :hover:enabled {
+      background-color: ${getColor("primaryLight")};
+      border: 1px solid ${getColor("primaryMed")};
+    }
+    :focus:enabled {
+      background-color: ${getColor("primaryLight")};
+      border: 1px solid ${getColor("primaryMed")};
+    }
+    :disabled {
+      background-color: ${getColor("white")};
+      border: 1px solid ${getColor("lightBorder")};
+      color: ${getColor("secondary")};
+      box-shadow: none;
+    }
+  }
+  &.info {
+    border: 1px solid ${getColor("infoLight")};
+    background-color: ${getColor("infoBG")};
+    color: ${getColor("info")};
+    :hover:enabled {
+      background-color: ${getColor("infoLight")};
+      border: 1px solid ${getColor("infoMed")};
+    }
+    :focus:enabled {
+      background-color: ${getColor("infoLight")};
+      border: 1px solid ${getColor("infoMed")};
+    }
+    :disabled {
+      background-color: ${getColor("white")};
+      border: 1px solid ${getColor("lightBorder")};
+      color: ${getColor("secondary")};
+      box-shadow: none;
+    }
   }
 `;
 

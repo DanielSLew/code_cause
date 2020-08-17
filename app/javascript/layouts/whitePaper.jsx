@@ -10,7 +10,7 @@ const Paper = styled.div`
   border-top: none;
   color: rgba(41, 41, 41, 1);
   
-  .project-title {
+  .paper-title {
     line-height: 48px;
     font-size: 3.2rem;
     font-weight: 300;
@@ -61,28 +61,25 @@ const Paper = styled.div`
   }
 `;
 
-const WhitePaper = () => {
-  const startingQAs = getFakeQAs();
-  const [QAs] = useState(startingQAs);
+const WhitePaper = ({ title, fields=[] }) => {
 
-  console.log(QAs);
   return (
     <Paper>
-      <h2 className="project-title">Fake Project Title</h2>
-      {QAs.map((qa) => {
+      <h2 className="paper-title">{title}</h2>
+      // {fields.map((field) => {
         return (
-          <div key={qa.id} className={qa.type}>
+          <div key={field.id} className={field.type}>
             <h3
               className={`${
-                qa.type === "section" ? "heading" : "sub-heading"
+                field.type === "section" ? "heading" : "sub-heading"
               } editable`}
             >
-              {qa.question}
+              {field.label}
             </h3>
-            <p className="response editable">{qa.answer}</p>
+            <p className="response editable">{field.content}</p>
           </div>
         );
-      })}
+       })}
     </Paper>
   );
 };

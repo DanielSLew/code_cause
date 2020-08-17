@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { getColor } from "helpers/style";
-import { ModalProvider } from 'contexts/modalContext';
 
-import Layout from "layouts/layout";
+import Layout from "layouts/index";
 import Project from "components/project";
 
 
@@ -49,32 +48,30 @@ const ProjectsPage = () => {
   }, []);
 
   return (
-    <ModalProvider>
-      <Layout>
-        <ListingSpace>
-          <section className="tag-section">
-            <aside className="worker-tags tags">
-              <p>Filter By Skill Set</p>
-              {/* WE'LL LIST OUT TAGS FOR EACH WORKER TYPE NEEDED HERE  */}
-            </aside>
-            <aside className="project-tags tags">
-              <p>Filter By Project Type</p>
-              {/* WE'LL LIST OUT TAGS FOR EACH PROJECT TYPE NEEDED HERE  */}
-            </aside>
-          </section>
-          <section className="listing-section">
-            <h1 className="listing-title">{projects.length} Projects!</h1>
-            <ul>
-              {projects &&
-                projects.map((project) => {
-                  return <Project project={project} key={project.id} />;
-                })}
-            </ul>
-          </section>
-        </ListingSpace>
-        {/* <button onClick={getProjects}> GET ASYNC PROJECTS </button> */}
-      </Layout>
-    </ModalProvider>
+    <Layout>
+      <ListingSpace>
+        <section className="tag-section">
+          <aside className="worker-tags tags">
+            <p>Filter By Skill Set</p>
+            {/* WE'LL LIST OUT TAGS FOR EACH WORKER TYPE NEEDED HERE  */}
+          </aside>
+          <aside className="project-tags tags">
+            <p>Filter By Project Type</p>
+            {/* WE'LL LIST OUT TAGS FOR EACH PROJECT TYPE NEEDED HERE  */}
+          </aside>
+        </section>
+        <section className="listing-section">
+          <h1 className="listing-title">{projects.length} Projects!</h1>
+          <ul>
+            {projects &&
+              projects.map((project) => {
+                return <Project project={project} key={project.id} />;
+              })}
+          </ul>
+        </section>
+      </ListingSpace>
+      {/* <button onClick={getProjects}> GET ASYNC PROJECTS </button> */}
+    </Layout>
   );
 };
 
