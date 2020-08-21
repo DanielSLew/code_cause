@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { Heart, Tag, Search } from "react-feather";
 
-import { getColor } from "helpers/style";
-
-import Layout from "layouts/index";
+import TabMenu from "components/tabMenu";
+import Tab from "components/tab";
+import Layout from "layouts/layout";
 import Project from "components/project";
-
+import { getColor } from "helpers/palette";
 
 const ListingSpace = styled.div`
-  margin-top: 4vh;
   display: flex;
   justify-content: flex-start;
   .listing-section {
@@ -47,19 +47,39 @@ const ProjectsPage = () => {
     getProjects();
   }, []);
 
+  const sideMenu = (
+    <TabMenu
+      options={[
+        {
+          value: "index",
+          tabButton: <Search value="search" />,
+          tabCard: <Tab content="Search For Projects" />,
+        },
+        {
+          value: "chat",
+          tabButton: <Tag value="tags" />,
+          tabCard: <Tab content="Search By Tags" />,
+        },
+        {
+          value: "contributors",
+          tabButton: <Heart value="likedProjects" />,
+          tabCard: <Tab content="Liked Projects" />,
+        },
+      ]}
+    />
+  );
+
   return (
-    <Layout>
+    <Layout sideMenu={sideMenu}>
       <ListingSpace>
-        <section className="tag-section">
+        {/* <section className="tag-section">
           <aside className="worker-tags tags">
             <p>Filter By Skill Set</p>
-            {/* WE'LL LIST OUT TAGS FOR EACH WORKER TYPE NEEDED HERE  */}
           </aside>
           <aside className="project-tags tags">
             <p>Filter By Project Type</p>
-            {/* WE'LL LIST OUT TAGS FOR EACH PROJECT TYPE NEEDED HERE  */}
           </aside>
-        </section>
+        </section> */}
         <section className="listing-section">
           <h1 className="listing-title">{projects.length} Projects!</h1>
           <ul>

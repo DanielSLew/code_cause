@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { getColor } from "helpers/style";
+import { getColor } from "helpers/palette";
 
 const StyledLabel = styled.label`
   display: flex;
@@ -35,7 +35,7 @@ const StyledInput = styled.input`
 
 const Input = ({ placeholder, label, id, fn, type, name, valid }) => {
   let invalidInput;
-  if (!valid) invalidInput = getColor('error');
+  if (!valid) invalidInput = getColor("error");
   id ||
     console.warn(
       "Styled Input requires an id string to match the label with the input "
@@ -52,7 +52,7 @@ const Input = ({ placeholder, label, id, fn, type, name, valid }) => {
         onBlur={fn}
         placeholder={placeholder || "Placeholder text"}
         type={type}
-        bgColor={invalidInput || getColor('white')}
+        bgColor={invalidInput || getColor("white")}
       />
     </StyledLabel>
   );

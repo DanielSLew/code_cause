@@ -3,13 +3,13 @@ import styled from "styled-components";
 import { X } from "react-feather";
 
 import { fadeIn, fadeOut } from "helpers/anims";
-import { getColor } from "helpers/style";
+import { getColor } from "helpers/palette";
 
 import Button from "components/button";
 
 const StyledTabMenu = styled.div`
-height: 100%;
-background-color: ${getColor("white")};
+  height: 100%;
+  background-color: ${getColor("white")};
 
   .in {
     opacity: 1;
@@ -29,10 +29,9 @@ background-color: ${getColor("white")};
     font-weight: 400;
   }
   .tab-frame {
-  height: 100%;
-    /* border: 1px solid ${getColor("lightborder")}; */
+    height: 100%;
   }
-  .tab-stage{
+  .tab-stage {
     height: 90%;
     display: flex;
     justify-content: center;
@@ -49,9 +48,8 @@ background-color: ${getColor("white")};
   .closeButton {
     border-right: none;
   }
-  
 `;
-const TabMenu = ({ options, title, closeDrawer }) => {
+const TabMenu = ({ options, title, handleToggle }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [fadeAnim, setFadeAnim] = useState("out");
 
@@ -106,11 +104,11 @@ const TabMenu = ({ options, title, closeDrawer }) => {
         <div className="tab-frame">
           <div className="tab-buttons-bar">
             {options &&
-              options.map(({ tabContent, value }, index) => (
+              options.map(({ tabButton, value }, index) => (
                 <Button
                   key={index}
                   className={"tabButton"}
-                  content={tabContent}
+                  content={tabButton}
                   value={value}
                   fn={handleTabChange}
                   height="4rem"
@@ -126,16 +124,15 @@ const TabMenu = ({ options, title, closeDrawer }) => {
               className="tabButton closeButton"
               content={<X />}
               value="close-button"
-              fn={closeDrawer}
+              fn={handleToggle}
               height="4rem"
               width={`${100 / options.length}%`}
               bgColor={getColor("dark")}
               border={`1px solid ${getColor("secondary")}`}
             />
           </div>
-
           <div className={`tab-stage ${fadeAnim}`}>
-            {selectedOption != null && selectedOption.render}
+            {selectedOption != null && selectedOption.tabCard}
           </div>
         </div>
       </StyledTabMenu>

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { getColor } from "helpers/style";
+import { getColor } from "helpers/palette";
 
 export const StyledButton = styled.button`
   padding: 0.25rem 1rem;

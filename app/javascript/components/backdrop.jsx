@@ -5,6 +5,10 @@ import { fadeIn, fadeOut } from "helpers/anims";
 
 const BackDropStyle = styled.div`
   display: flex;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   position: absolute;
   justify-content: center;
   align-items: center;
