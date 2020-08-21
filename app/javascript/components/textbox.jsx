@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { getColor } from "helpers/style";
+import { getColor } from "helpers/palette";
 
 const StyledLabel = styled.label`
   display: flex;
@@ -51,7 +51,6 @@ const TextBox = ({ placeholder, label, id, fn, type, cols, rows, name }) => {
         type={"email"}
         cols={cols || 30}
         rows={rows || 10}
-
       />
     </StyledLabel>
   );

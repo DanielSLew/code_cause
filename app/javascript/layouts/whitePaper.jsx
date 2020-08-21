@@ -1,21 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-
-import { getColor } from "helpers/style";
+import TitleBar from "components/TitleBar";
+import { getColor } from "helpers/palette";
 
 const Paper = styled.div`
+  grid-column: 3/4;
   background-color: ${getColor("white")};
   border: 1px solid ${getColor("lightBorder")};
-  border-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
   border-top: none;
   color: rgba(41, 41, 41, 1);
-  
+  padding-top: 3rem;
+
   .paper-title {
     line-height: 48px;
     font-size: 3.2rem;
     font-weight: 300;
     margin: 0rem 6rem 3rem 4rem;
-    padding-top: 3rem;
   }
 
   .section,
@@ -24,10 +26,8 @@ const Paper = styled.div`
     line-height: 32px;
     font-size: 1.2rem;
     letter-spacing: -0.003em;
-    /* color: rgba(41, 41, 41, 1); */
     font-style: normal;
     font-weight: 400;
-    /* border-top: 1px solid ${getColor("lightBorder")}; */
   }
 
   .section {
@@ -61,26 +61,27 @@ const Paper = styled.div`
   }
 `;
 
-const WhitePaper = ({ title, fields=[] }) => {
-
+const WhitePaper = ({ title, fields = [] }) => {
   return (
-    <Paper>
-      <h2 className="paper-title">{title}</h2>
-      // {fields.map((field) => {
-        return (
-          <div key={field.id} className={field.type}>
-            <h3
-              className={`${
-                field.type === "section" ? "heading" : "sub-heading"
-              } editable`}
-            >
-              {field.label}
-            </h3>
-            <p className="response editable">{field.content}</p>
-          </div>
-        );
-       })}
-    </Paper>
+    <>
+      <Paper>
+        {title && <h2 className="paper-title">{title}</h2>}
+        {fields.map((field) => {
+          return (
+            <div key={field.id} className={field.type}>
+              <h3
+                className={`${
+                  field.type === "section" ? "heading" : "sub-heading"
+                } editable`}
+              >
+                {field.label}
+              </h3>
+              <p className="response editable">{field.content}</p>
+            </div>
+          );
+        })}
+      </Paper>
+    </>
   );
 };
 

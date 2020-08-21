@@ -1,56 +1,43 @@
 import React, { useContext } from "react";
-import { Link } from 'react-router-dom';
 import styled from "styled-components";
 
-import { UserContext } from 'contexts/userContext';
-import { ModalContext } from 'contexts/modalContext';
-
-import Login from 'components/Login';
-import SignUp from 'components/SignUp';
-
-import Button from 'components/button';
+import { UserContext } from "contexts/userContext";
+import Button from "components/button";
+import { getColor } from "helpers/palette";
 
 const NavContainer = styled.nav`
-  height: 6rem;
-  background-color: black;
+  height: 4rem;
+  max-width: 100vw;
+  position: sticky;
+  top: 0;
+  background-color: ${getColor("dark")};
 `;
 
-const Header = () => {
+const Header = ({ toggleLogin, toggleSignUp, toggleDrawer, toggleStepper }) => {
   const { user, setUser } = useContext(UserContext);
-  const { toggleModal, setModalContent } = useContext(ModalContext);
 
   const handleLogout = () => {
     setUser({});
-    localStorage.removeItem('token');
-  }
+    localStorage.removeItem("token");
+  };
 
-  const handleFormModal = (page) => {
-    const formType = page === 'Login' ? Login : SignUp;
-    setModalContent({ content: formType })
-    toggleModal();
-  }
-
-  if (user.id) {
-    return (
-      <NavContainer>
-        <Button content='Logout' fn={handleLogout} />
-        <h1 style={{color: 'white'}}>Welcome {user.name}</h1>
-      </NavContainer>
-    )
-  } else {
-    return (
-      <NavContainer>
-        <Button 
-          fn={() => handleFormModal('Login')}
-          content='Login'
-        />
-        <Button 
-          fn={() => handleFormModal('SignUp')}
-          content='Sign Up'
-        />
-      </NavContainer>
-    )
-  }
+  return (
+    <NavContainer>
+      <Button fn={toggleDrawer} content="Menu" />
+      <Button fn={toggleStepper} content="Stepper" />
+      {user.id ? (
+        <>
+          <Button content="Logout" fn={handleLogout} />
+          <h1 style={{ color: "white" }}>Welcome {user.name}</h1>
+        </>
+      ) : (
+        <>
+          <Button fn={toggleLogin} content="Login" />
+          <Button fn={toggleSignUp} content="Sign Up" />
+        </>
+      )}
+    </NavContainer>
+  );
 };
 
 export default Header;

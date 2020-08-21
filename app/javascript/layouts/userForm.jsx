@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { getColor } from "helpers/style";
-
+import { getColor } from "helpers/palette";
 
 const StyledForm = styled.form`
   display: flex;
@@ -12,23 +11,20 @@ const StyledForm = styled.form`
   border: 1px solid ${getColor("lightBorder")};
   border-radius: 10% 10% 4px 4px;
   padding-bottom: 2rem;
-`
+`;
 
 const StyledTitle = styled.h1`
   margin: 2rem;
-  color: ${getColor("dark")}
-`
+  color: ${getColor("dark")};
+`;
 
 const userForm = ({ children, title }) => {
-
   return (
     <StyledForm>
-      <StyledTitle>
-        {title}
-      </StyledTitle>
+      <StyledTitle>{title}</StyledTitle>
       {children}
     </StyledForm>
-  )
-}
+  );
+};
 
 export default userForm;
