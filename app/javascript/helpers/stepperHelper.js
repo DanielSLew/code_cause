@@ -1,8 +1,48 @@
+const onlyQAFrames = (steps) => {
+  return steps.map((step) => {
+    return {
+      tag: step.tag,
+      QA: step.frames.find((frame) => frame.tag),
+    };
+  });
+};
+const mapSingleQA = (step) => {
+  const { type, question } = step.QA;
+  return {
+    tag: step.tag,
+    type,
+    question,
+    answer: "",
+    completed: false,
+  };
+};
+const mapMultiQA = (step) => {
+  const { type, questions } = step.QA;
+  return {
+    tag: step.tag,
+    type,
+    questions,
+    answers: questions.map((question) => ""),
+    completed: false,
+  };
+};
+
+export const createStepperData = (instructions) => {
+  if (!instructions) throw "Did not recieve valid instructions";
+  const stepData = onlyQAFrames(instructions);
+  return stepData.map((step) => {
+    if (step.QA.type === "singleQA") return mapSingleQA(step);
+    if (step.QA.type === "multiQA") return mapMultiQA(step);
+    else {
+      throw "Step doesn't have a valid QA frame";
+    }
+  });
+};
+
 export const instructions = [
   {
-    step: 0,
     tag: "Q0",
-    frame: [
+    frames: [
       {
         type: "message",
         title: "Starting a Project on Code Cause",
@@ -40,9 +80,8 @@ export const instructions = [
     ],
   },
   {
-    step: 1,
     tag: "Q1",
-    frame: [
+    frames: [
       {
         type: "message",
         title: "Sounds Great!",
@@ -81,11 +120,3 @@ export const instructions = [
     ],
   },
 ];
-export const mapTagsToObject = (data) => {
-  //TODO make functionality for MultiQuestion frames
-  let obj = {};
-  for (let i = 0; i < data.length; i++) {
-    obj[data[i].tag] = "";
-  }
-  return obj;
-};

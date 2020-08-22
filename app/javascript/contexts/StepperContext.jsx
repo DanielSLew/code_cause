@@ -1,50 +1,57 @@
 import React, { useState, createContext } from "react";
 
-import { instructions } from "helpers/instructions";
-import { mapTagsToObject } from "helpers/instructions";
+import { instructions, createStepperData } from "helpers/stepperHelper";
+
+const steps = Object.freeze(instructions);
 
 export const StepperContext = createContext();
 
 export const StepperProvider = ({ children }) => {
-  const [steps, setSteps] = useState(
-    instructions.map((step) => {
-      return { ...step, completed: false };
-    })
+  const [stepperData, setStepperData] = useState(
+    createStepperData(instructions)
   );
-
-  const [temporaryVals, setTemporaryValues] = useState(
-    mapTagsToObject(instructions)
-  );
-
   const [frame, setFrame] = useState(0);
   const [step, setStep] = useState(0);
+
+  //******************DATA Fns************************ */
+  const currentInputValue = stepperData[step].answer;
+
+  //TODO, refactor. I went for simplicity and safety over
+  //performance. Should refactor to something that updates state
+  //only when the user clicks to submit or to another page.
+  const typeAnswer = (str) => {
+    const newQA = { ...stepperData[step], answer: str };
+    setStepperData((currentData) => [
+      ...currentData.slice(0, step),
+      newQA,
+      ...currentData.slice(step + 1),
+    ]);
+  };
+
+  const addData = () => {
+    const newQA = { ...stepperData[step], completed: true };
+    setStepperData((currentData) => [
+      ...currentData.slice(0, step),
+      newQA,
+      ...currentData.slice(step + 1),
+    ]);
+  };
+
+  //***********Navigational Fns******************//
+
   const currentStep = steps[step];
-  const currentFrame = steps[step].frame[frame];
+  const currentFrame = currentStep.frames[frame];
 
-  const saveInput = (tag, val) =>
-    setTemporaryValues({ ...temporaryVals, [tag]: val });
-
-  const addData = (tag, val) => {
-    setSteps((currentSteps) =>
-      currentSteps.map((step) => {
-        return step.tag === tag
-          ? { ...step, completed: true, answer: val }
-          : step;
-      })
-    );
-  };
   const nextFrame = () => setFrame((currentFrame) => currentFrame + 1);
-  const nextStep = () => {
-    setStep((currentStep) => currentStep + 1);
-  };
-  const cannotMoveForward = () =>
-    frame >= steps[step].frame.length - 1 && step >= steps.length - 1;
+  const nextStep = () => setStep((currentStep) => currentStep + 1);
 
+  const cannotMoveForward = () =>
+    frame >= currentStep.frames.length - 1 && step >= steps.length - 1;
   const cannotMoveBackward = () => frame <= 0 && step <= 0;
 
   const next = () => {
     if (cannotMoveForward()) return;
-    if (frame + 1 < currentStep.frame.length) {
+    if (frame + 1 < currentStep.frames.length) {
       nextFrame();
     } else {
       nextStep();
@@ -56,18 +63,19 @@ export const StepperProvider = ({ children }) => {
     if (frame === 0) {
       setStep((thisStep) => thisStep - 1);
       const prevStep = steps[step - 1];
-      setFrame(prevStep.frame.length - 1);
+      setFrame(prevStep.frames.length - 1);
     } else {
       setFrame((thisFrame) => thisFrame - 1);
     }
   };
+
   return (
     <StepperContext.Provider
       value={{
         steps,
-        setSteps,
-        temporaryVals,
-        saveInput,
+        stepperData,
+        currentInputValue,
+        typeAnswer,
         addData,
         frame,
         setFrame,

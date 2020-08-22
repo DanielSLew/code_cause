@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
+import Modal from "components/modal";
 
 import { UserContext } from "contexts/userContext";
-
 import {
   VALID_PASSWORD_LENGTH,
   VALID_USERNAME_LENGTH,
@@ -13,7 +13,7 @@ import Button from "components/button";
 
 import UserForm from "layouts/userForm";
 
-function Login() {
+function Login({ toggleModal }) {
   const { user, setUser } = useContext(UserContext);
 
   const [username, setUsername] = useState("");
@@ -73,7 +73,7 @@ function Login() {
     return <Redirect to="/projects" />;
   } else {
     return (
-      <>
+      <Modal toggleModal={toggleModal}>
         <UserForm title="Login">
           <Input
             id="username"
@@ -100,7 +100,7 @@ function Login() {
             fn={handleSubmit}
           />
         </UserForm>
-      </>
+      </Modal>
     );
   }
 }

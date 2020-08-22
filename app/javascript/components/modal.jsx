@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { X } from "react-feather";
 
 import { fadeIn, fadeOut, slideUp, slideDown } from "helpers/anims";
-import { getColor } from "helpers/palette";
 import Backdrop from "components/backdrop";
 
 const ModalBox = styled.div`

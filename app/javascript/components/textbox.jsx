@@ -1,58 +1,69 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 
+import { StepperContext } from "contexts/StepperContext";
 import { getColor } from "helpers/palette";
 
-const StyledLabel = styled.label`
-  display: flex;
-  flex-direction: column;
-  color: #adb8ba;
-`;
-
 const StyledTextBox = styled.textarea`
-  margin-bottom: 1vh;
-  resize: none;
-  box-sizing: border-box;
   display: inline-block;
-  font-size: 0.9rem;
-  padding-left: 9px;
-  padding-bottom: 2px;
-  border: 1px solid ${getColor("lightBorder")};
+  background-color: ${(props) => props.bgColor};
+  box-sizing: border-box;
+  resize: none;
+  color: ${(props) => props.color};
+  font-size: 1.2rem;
+  font-weight: 400;
+  padding: 2rem;
+  height: 35vh;
+  width: 90%;
+  border: ${(props) => props.border};
   border-radius: 4px;
   transition: 0.2s all;
+  font-family: inherit;
   ::placeholder {
     margin-left: 6px;
+    color: ${(props) => props.color};
+    opacity: 0.2;
   }
   :focus {
-    background-color: #f2f6fa;
     outline: none;
+    background-color: ${getColor("white")};
   }
-  label {
-    display: inline-block;
+  :disabled {
+    background-color: ${getColor("lightBorder")};
   }
 `;
 
-const TextBox = ({ placeholder, label, id, fn, type, cols, rows, name }) => {
+const TextBox = ({
+  placeholder,
+  value,
+  border,
+  id,
+  fn,
+  tag,
+  name,
+  className,
+  color,
+}) => {
+  const { currentStep } = useContext(StepperContext);
   id ||
     console.warn(
       "Styled Input requires an id string to match the label with the input "
     );
-  label || console.warn("Styled Input requires a label string for a11y");
 
   return (
-    <StyledLabel htmlFor={id}>
-      {label ? label : "No Label Passed In"}
-      <StyledTextBox
-        id={id}
-        name={name || id || "name your Input"}
-        onChange={fn}
-        onBlur={fn}
-        placeholder={placeholder || "Placeholder text"}
-        type={"email"}
-        cols={cols || 30}
-        rows={rows || 10}
-      />
-    </StyledLabel>
+    <StyledTextBox
+      id={tag}
+      name={name || id || "name your Input"}
+      color={color || getColor("font")}
+      border={border || `1px solid ${getColor("lightBorder")}`}
+      bgColor={color || getColor("lightgrey")}
+      onChange={fn}
+      onBlur={fn}
+      placeholder={placeholder || "Placeholder text"}
+      className={`${className} ${currentStep.completed && "completed"}`}
+      value={value}
+      disabled={currentStep.completed}
+    />
   );
 };
 
