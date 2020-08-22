@@ -25,17 +25,22 @@ const StyledQA = styled.form`
   }
 `;
 
-const SingleQA = ({ subTitle, question, details, input, tag, title, help }) => {
-  const { temporaryVals, saveInput, addData, next } = useContext(
-    StepperContext
-  );
-  const relevantValue = temporaryVals[tag];
+const SingleQA = () => {
+  const {
+    addData,
+    next,
+    currentFrame,
+    typeAnswer,
+    currentInputValue,
+  } = useContext(StepperContext);
+
+  const { subTitle, question, details, input, tag, title, help } = currentFrame;
   const handleTyping = (e) => {
-    saveInput(tag, e.target.value);
+    typeAnswer(e.target.value);
   };
   const completeStep = (e) => {
     e.preventDefault();
-    addData(tag, temporaryVals[tag]);
+    addData();
     next();
   };
 
@@ -49,14 +54,14 @@ const SingleQA = ({ subTitle, question, details, input, tag, title, help }) => {
       {details && <Details details={details}>{details}</Details>}
 
       <InputFactory
-        input={{
+        inputData={{
           ...input,
           fn: handleTyping,
           id: tag,
           tag: tag,
           className: "QA-input",
           placeholder: "Type here",
-          value: relevantValue,
+          value: currentInputValue,
         }}
       />
       <Help helpText={help} className="QA-help" />
@@ -66,7 +71,7 @@ const SingleQA = ({ subTitle, question, details, input, tag, title, help }) => {
         width="10rem"
         className="submit-button primary"
         fn={completeStep}
-        disabled={relevantValue === ""}
+        disabled={currentInputValue === ""}
       />
     </StyledQA>
   );

@@ -24,11 +24,11 @@ const MessageFrame = styled.div`
   }
 `;
 
-const Message = ({ title }) => {
-  const { steps } = useContext(StepperContext);
+const Message = () => {
+  const { steps, currentFrame } = useContext(StepperContext);
   return (
     <MessageFrame>
-      <Title>{title}</Title>
+      <Title>{currentFrame.title}</Title>
       {/* {steps.map((step, i) => {
         return (
           <div key={i}>
@@ -43,7 +43,6 @@ const Message = ({ title }) => {
         height="3rem"
         width="10rem"
         className="next-button primary"
-        fn=""
       />
     </MessageFrame>
   );

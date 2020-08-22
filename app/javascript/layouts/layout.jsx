@@ -29,7 +29,7 @@ const MainSpace = styled.main`
 
 const Layout = ({ children, sideMenu }) => {
   const [drawer, toggleDrawer] = useToggle(true);
-  const [stepper, toggleStepper] = useToggle(false);
+  const [stepper, toggleStepper] = useToggle(true);
   const [login, toggleLogin] = useToggle(false);
   const [signUp, toggleSignUp] = useToggle(false);
 
@@ -49,16 +49,8 @@ const Layout = ({ children, sideMenu }) => {
         )}
         <MainSpace>{children}</MainSpace>
       </StyleTemplate>
-      {login && (
-        <Modal toggleModal={toggleLogin}>
-          <Login />
-        </Modal>
-      )}
-      {signUp && (
-        <Modal toggleModal={toggleSignUp}>
-          <SignUp />
-        </Modal>
-      )}
+      {login && <Login toggleModal={toggleLogin} />}
+      {signUp && <SignUp toggleModal={toggleSignUp} />}
       {stepper && <Stepper toggleStepper={toggleStepper} />}
     </>
   );

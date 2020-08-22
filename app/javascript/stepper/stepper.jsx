@@ -24,10 +24,7 @@ const StepperWindow = styled.div`
 `;
 
 const Stepper = ({ toggleStepper }) => {
-  const { steps, setSteps, step, currentFrame, next, prev } = useContext(
-    StepperContext
-  );
-
+  const { steps, step, currentFrame, next, prev } = useContext(StepperContext);
   const [isOpening, setIsOpening] = useState(true);
 
   const handleClick = (e) => {
@@ -57,13 +54,12 @@ const Stepper = ({ toggleStepper }) => {
     >
       <StepperWindow>
         <div className="stepper-panel">
-          <FrameFactory frame={currentFrame} />
+          <FrameFactory frameType={currentFrame.type} />
         </div>
         <StepperNav
           help={currentFrame.help}
           next={next}
           prev={prev}
-          setSteps={setSteps}
           steps={steps}
           step={step}
           tag={currentFrame.tag}

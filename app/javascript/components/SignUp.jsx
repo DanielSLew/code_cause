@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
+import Modal from "components/modal";
 
 import { UserContext } from "contexts/userContext";
-import { ModalContext } from "contexts/modalContext";
 import {
   VALID_PASSWORD_LENGTH,
   VALID_USERNAME_LENGTH,
@@ -15,7 +15,7 @@ import Input from "components/input";
 import Button from "components/button";
 import TextBox from "components/textbox";
 
-function SignUpPage() {
+function SignUpPage({ toggleModal }) {
   const { user, setUser } = useContext(UserContext);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -87,7 +87,7 @@ function SignUpPage() {
     return <Redirect to="/projects" />;
   } else {
     return (
-      <>
+      <Modal toggleModal={toggleModal}>
         <UserForm title="Sign Up">
           <Input
             id="name"
@@ -148,7 +148,7 @@ function SignUpPage() {
             fn={handleSubmit}
           />
         </UserForm>
-      </>
+      </Modal>
     );
   }
 }

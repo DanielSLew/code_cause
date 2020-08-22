@@ -24,8 +24,10 @@ const MessageFrame = styled.div`
   }
 `;
 
-const Message = ({ title, subTitle, body }) => {
-  const { next } = useContext(StepperContext);
+const Message = () => {
+  const { next, currentFrame } = useContext(StepperContext);
+  const { title, subTitle, body } = currentFrame;
+  console.log(title);
   return (
     <MessageFrame>
       <Title>{title}</Title>

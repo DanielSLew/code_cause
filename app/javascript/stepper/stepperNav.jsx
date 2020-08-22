@@ -48,7 +48,7 @@ const StyledStepperController = styled.div`
 
 const StepperController = ({ next, prev, exit, tag }) => {
   const {
-    temporaryVals,
+    stepperData,
     addData,
     steps,
     step,
@@ -58,7 +58,7 @@ const StepperController = ({ next, prev, exit, tag }) => {
 
   const completeStep = (e) => {
     e.preventDefault();
-    addData(tag, temporaryVals[tag]);
+    addData(tag, stepperData[tag]);
     next();
   };
 
