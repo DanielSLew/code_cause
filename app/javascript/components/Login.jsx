@@ -1,13 +1,14 @@
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
-import Modal from "components/modal";
 
 import { UserContext } from "contexts/userContext";
 import {
   VALID_PASSWORD_LENGTH,
   VALID_USERNAME_LENGTH,
 } from "helpers/validations";
+import { loginUser } from 'actions/user';
 
+import Modal from "components/modal";
 import Input from "components/input";
 import Button from "components/button";
 
@@ -22,31 +23,9 @@ function Login({ toggleModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    const params = { password, name: username };
 
-    fetch("/api/v1/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        name: username,
-        password,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.error) {
-          setIsLoading(false);
-          // handle error message
-        } else {
-          localStorage.setItem("token", data.jwt);
-          setUser(data.user);
-          toggleModal();
-        }
-      });
+    loginUser({ params, setUser, setIsLoading, toggleModal });
   };
 
   const handlePasswordChange = (e) => {

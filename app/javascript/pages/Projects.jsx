@@ -6,7 +6,10 @@ import TabMenu from "components/tabMenu";
 import Tab from "components/tab";
 import Layout from "layouts/layout";
 import Project from "components/project";
+
 import { getColor } from "helpers/palette";
+import { getProjects } from "actions/project";
+
 
 const ListingSpace = styled.div`
   display: flex;
@@ -34,17 +37,7 @@ const ProjectsPage = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    const getProjects = async () => {
-      const response = await fetch("/api/v1/projects", {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
-      const json = await response.json();
-      setProjects(json);
-    };
-    getProjects();
+    getProjects({ setState: setProjects });
   }, []);
 
   const sideMenu = (

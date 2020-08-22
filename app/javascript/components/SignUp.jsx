@@ -9,6 +9,8 @@ import {
   VALID_EMAIL_REGEX,
 } from "helpers/validations";
 
+import { createUser } from 'actions/user';
+
 import UserForm from "layouts/userForm";
 
 import Input from "components/input";
@@ -28,28 +30,7 @@ function SignUpPage({ toggleModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    fetch("/api/v1/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({ ...formFields }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.error) {
-          setIsLoading(false);
-          // handle error message
-        } else {
-          localStorage.setItem("token", data.jwt);
-          setUser(data.user);
-          toggleModal();
-        }
-      });
+    createUser({ setUser, setIsLoading, params: formFields, toggleModal });
   };
 
   const handleFormFieldChange = (e) => {
