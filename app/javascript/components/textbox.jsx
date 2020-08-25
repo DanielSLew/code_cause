@@ -14,7 +14,7 @@ const StyledTextBox = styled.textarea`
   font-weight: 400;
   padding: 2rem;
   height: 35vh;
-  width: 90%;
+  width: 100%;
   border: ${(props) => props.border};
   border-radius: 4px;
   transition: 0.2s all;

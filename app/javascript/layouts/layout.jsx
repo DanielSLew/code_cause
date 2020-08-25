@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import Stepper from "stepper/stepper";
 import Drawer from "components/drawer";
-import Modal from "components/modal";
 import Header from "layouts/header";
 import Login from "components/Login";
 import SignUp from "components/SignUp";

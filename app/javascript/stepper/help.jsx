@@ -4,17 +4,17 @@ import styled from "styled-components";
 import Button from "components/button";
 import { getColor } from "helpers/palette";
 
-const StyledHelpButton = styled.span`
-  .text-panel {
-    background-color: ${getColor("infoBG")};
-    border: 1px solid ${getColor("infoLight")};
-    transform: translateY(calc(-100%));
-    font-size: 1.2rem;
-    width: 30rem;
-    position: absolute;
-    padding: 1.2rem;
-    font-weight: 400;
-  }
+const StyledHelpButton = styled(Button)``;
+const TextPanel = styled.div`
+  position: absolute;
+  background-color: ${getColor("infoBG")};
+  border: 1px solid ${getColor("infoLight")};
+  transform: translateY(calc(-100%));
+  font-size: 1.2rem;
+  width: 30rem;
+  position: absolute;
+  padding: 1.2rem;
+  font-weight: 400;
 `;
 
 const Help = ({ helpText, className }) => {
@@ -27,18 +27,20 @@ const Help = ({ helpText, className }) => {
   };
 
   return (
-    <StyledHelpButton className={className}>
-      {textVisible && <span className="text-panel">{helpText}</span>}
-      <Button
+    <>
+      {textVisible && <TextPanel>{helpText}</TextPanel>}
+      <StyledHelpButton
+        className={className}
         content="?"
-        fontSize="1.8rem"
+        fontSize="1.5rem"
         height="3rem"
-        width="6rem"
+        width="3rem"
+        radius="50%"
         className="help-button info"
         fn={toggleTextVisible}
         disabled={!helpText}
       />
-    </StyledHelpButton>
+    </>
   );
 };
 

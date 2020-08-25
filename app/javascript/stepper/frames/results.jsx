@@ -2,50 +2,43 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 
 import { StepperContext } from "contexts/StepperContext";
-import Button from "components/button";
-import { Title } from "stepper/frames/elements";
+import { getColor } from "helpers/palette";
+import { Title, Question, Details } from "stepper/frames/elements";
 
-const MessageFrame = styled.div`
-  position: relative;
-  height: 100%;
+const ResultsFrame = styled.div`
+  /* position: relative; */
 
-  .list {
-    list-style: square;
-    margin-left: 1.5rem;
-
-    li {
-      margin: 0.5rem 0;
-    }
+  ul {
+    list-style: none;
   }
-  .next-button {
-    position: absolute;
-    bottom: 4rem;
-    right: 0;
+  .QA-list-item {
+    padding-top: 0.5rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid ${getColor("lightBorder")};
   }
 `;
 
-const Message = () => {
-  const { steps, currentFrame } = useContext(StepperContext);
+const Results = () => {
+  const { stepperData, currentFrame } = useContext(StepperContext);
   return (
-    <MessageFrame>
-      <Title>{currentFrame.title}</Title>
-      {/* {steps.map((step, i) => {
-        return (
-          <div key={i}>
-            <SubTitle>{step.question}</SubTitle>
-            <Details>{step.answer}</Details>
-          </div>
-        );
-      })} */}
-
-      <Button
-        content="(Dummy)"
-        height="3rem"
-        width="10rem"
-        className="next-button primary"
-      />
-    </MessageFrame>
+    <ResultsFrame>
+      <Question>{currentFrame.title}</Question>
+      <ul>
+        {stepperData.map((step) => {
+          return (
+            <li key={step.tag} className="QA-list-item">
+              <Title>{step.question}</Title>
+              {step.answer ? (
+                <Details>{step.answer}</Details>
+              ) : (
+                <Details>{"Answer required"}</Details>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </ResultsFrame>
   );
 };
 
-export default Message;
+export default Results;

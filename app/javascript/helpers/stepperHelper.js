@@ -7,7 +7,7 @@ const onlyQAFrames = (steps) => {
   });
 };
 const mapSingleQA = (step) => {
-  const { type, question } = step.QA;
+  const { type, question, title } = step.QA;
   return {
     tag: step.tag,
     type,
