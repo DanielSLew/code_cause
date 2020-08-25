@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { StepperContext } from "contexts/StepperContext";
 import FrameFactory from "stepper/factories/frameFactory";
-import StepperNav from "stepper/stepperNav";
+import StepperMap from "stepper/stepperMap";
 import Background from "stepper/background";
 import { getColor } from "helpers/palette";
 
@@ -20,14 +20,17 @@ const StepperWindow = styled.div`
     grid-column: 3/4;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+  }
+  .x-button {
   }
 `;
 
 const Stepper = ({ toggleStepper }) => {
-  const { steps, step, currentFrame, next, prev } = useContext(StepperContext);
+  const { currentFrame } = useContext(StepperContext);
   const [isOpening, setIsOpening] = useState(true);
 
-  const handleClick = (e) => {
+  const exitStepper = (e) => {
     setIsOpening(false);
     setTimeout(() => toggleStepper(), 200);
   };
@@ -54,17 +57,12 @@ const Stepper = ({ toggleStepper }) => {
     >
       <StepperWindow>
         <div className="stepper-panel">
-          <FrameFactory frameType={currentFrame.type} />
+          <FrameFactory
+            frameType={currentFrame.type}
+            exitStepper={exitStepper}
+          />
         </div>
-        <StepperNav
-          help={currentFrame.help}
-          next={next}
-          prev={prev}
-          steps={steps}
-          step={step}
-          tag={currentFrame.tag}
-          exit={handleClick}
-        />
+        <StepperMap />
       </StepperWindow>
     </Background>
   );

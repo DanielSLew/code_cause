@@ -2,12 +2,10 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 
 import { StepperContext } from "contexts/StepperContext";
-import { Title, SubTitle } from "stepper/frames/elements";
-import Button from "components/button";
+import { Title, MsgText } from "stepper/frames/elements";
 
 const MessageFrame = styled.div`
   position: relative;
-  height: 100%;
 
   .list {
     list-style: square;
@@ -17,21 +15,16 @@ const MessageFrame = styled.div`
       margin: 0.5rem 0;
     }
   }
-  .next-button {
-    position: absolute;
-    bottom: 4rem;
-    right: 0;
-  }
 `;
 
 const Message = () => {
-  const { next, currentFrame } = useContext(StepperContext);
+  const { currentFrame } = useContext(StepperContext);
   const { title, subTitle, body } = currentFrame;
-  console.log(title);
+
   return (
     <MessageFrame>
       <Title>{title}</Title>
-      {subTitle && <SubTitle>{subTitle} </SubTitle>}
+      {subTitle && <MsgText> {subTitle} </MsgText>}
       {body && (
         <div className="body-text">
           {body.type === "list" ? (
@@ -45,14 +38,6 @@ const Message = () => {
           )}
         </div>
       )}
-
-      <Button
-        content="Continue"
-        height="3rem"
-        width="10rem"
-        className="next-button primary"
-        fn={next}
-      />
     </MessageFrame>
   );
 };

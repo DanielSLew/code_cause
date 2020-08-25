@@ -4,6 +4,7 @@ export const getColor = (name) => {
     lightgrey: "#f6f8fa",
     darkgrey: "#2f363d",
     dark: "#0c131a",
+    darkHighlight: "#182533",
     lightBorder: "#e1e4e8",
     clearBorder: "#e1e4e8",
     font: "rgb(41,41,41)",
@@ -19,14 +20,22 @@ export const getColor = (name) => {
     danger: "#d73a49",
     //500
     primary: "#0366d6",
-
     //000
     primaryBG: "#f1f8ff",
     //100
     primaryLight: "#dbedff",
     //200
-    primaryMed: "#c8e1ff",
-    secondary: "#8d97a4",
+    primaryLight2: "#c8e1ff",
+    //300
+    primaryMed: "#79b8ff",
+
+    secondary: "#959da5",
+    secondary000: "#fafbfc",
+    secondary100: "#f6f8fa",
+    secondary200: "#e1e4e8",
+    secondary300: "#d1d5da",
+    secondary500: "#6a737d",
+    secondary600: "#586069",
   };
   return palette[name];
 };

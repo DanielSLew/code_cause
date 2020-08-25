@@ -10,8 +10,8 @@ export const StepperProvider = ({ children }) => {
   const [stepperData, setStepperData] = useState(
     createStepperData(instructions)
   );
-  const [frame, setFrame] = useState(0);
   const [step, setStep] = useState(0);
+  const [frame, setFrame] = useState(0);
 
   //******************DATA Fns************************ */
   const currentInputValue = stepperData[step].answer;

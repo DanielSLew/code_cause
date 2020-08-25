@@ -4,9 +4,12 @@ import styled from "styled-components";
 import { getColor } from "helpers/palette";
 
 export const StyledButton = styled.button`
-  padding: 0.25rem 1rem;
+  /* padding: 0.25rem 1rem; */
   border-radius: ${(props) => props.radius};
-  position: relative;
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; */
   outline: none;
   font-weight: 500;
   font-size: ${(props) => props.fontSize};
@@ -41,7 +44,7 @@ export const StyledButton = styled.button`
     border-bottom: none;
     border-left: none;
     :hover {
-      background-color: #182533;
+      background-color: ${getColor("darkHighlight")};
       color: ${getColor("lightBorder")};
       box-shadow: none;
     }
@@ -53,6 +56,9 @@ export const StyledButton = styled.button`
       color: ${getColor("dark")};
       background-color: ${getColor("white")};
     }
+  }
+  :disabled {
+    cursor: auto;
   }
 
   &.stepper-tab-button {
@@ -76,15 +82,15 @@ export const StyledButton = styled.button`
     }
   }
   &.primary {
-    border: 1px solid ${getColor("primaryLight")};
-    background-color: ${getColor("primaryBG")};
+    border: 1px solid ${getColor("primaryLight2")};
+    background-color: ${getColor("primaryLight")};
     color: ${getColor("primary")};
     :hover:enabled {
-      background-color: ${getColor("primaryLight")};
+      background-color: ${getColor("primaryLight2")};
       border: 1px solid ${getColor("primaryMed")};
     }
     :focus:enabled {
-      background-color: ${getColor("primaryLight")};
+      background-color: ${getColor("primaryLight2")};
       border: 1px solid ${getColor("primaryMed")};
     }
     :disabled {
@@ -94,6 +100,41 @@ export const StyledButton = styled.button`
       box-shadow: none;
     }
   }
+  &.secondary,
+  &.x-button {
+    border: 1px solid ${getColor("secondary300")};
+    background-color: ${getColor("secondary100")};
+    color: ${getColor("dark")};
+    :hover:enabled {
+      background-color: ${getColor("white")};
+      border: 1px solid ${getColor("secondary")};
+      color: ${getColor("dark")};
+    }
+    :focus:enabled {
+      background-color: ${getColor("white")};
+      border: 1px solid ${getColor("secondary")};
+      color: ${getColor("dark")};
+    }
+    :disabled {
+      background-color: ${getColor("white")};
+      border: 1px solid ${getColor("lightBorder")};
+      color: ${getColor("secondary")};
+      box-shadow: none;
+    }
+  }
+
+  &.x-button {
+    border: none;
+    :hover:enabled {
+      border: none;
+      background-color: ${getColor("secondary200")};
+    }
+    :focus:enabled {
+      border: none;
+      background-color: ${getColor("secondary200")};
+    }
+  }
+
   &.info {
     border: 1px solid ${getColor("infoLight")};
     background-color: ${getColor("infoBG")};
@@ -118,6 +159,7 @@ export const StyledButton = styled.button`
 const Button = ({
   className,
   fn,
+  fontSize,
   content,
   value,
   height,
@@ -137,7 +179,7 @@ const Button = ({
       disabled={disabled}
       height={height || "2.5rem"}
       width={width || "7rem"}
-      fontSize={"1.2rem"}
+      fontSize={fontSize || "1.2rem"}
       color={color || getColor("dark")}
       bgColor={bgColor || getColor("white")}
       radius={radius || "4px"}
