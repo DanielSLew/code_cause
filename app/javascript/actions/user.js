@@ -5,6 +5,17 @@ const headers = {
   Accept: "application/json",
 }
 
+const localStorageSupported = () => {
+  try {
+    const testKey = "__testKey__";
+    localStorage.setItem(testKey, testKey);
+    localStorage.removeItem(testKey);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
 export const loginUser = async ({ setUser, params, setIsLoading, toggleModal }) => {
   setIsLoading(true); 
   const options = { method: 'POST', headers, body: JSON.stringify(params) };
@@ -15,25 +26,28 @@ export const loginUser = async ({ setUser, params, setIsLoading, toggleModal }) 
     setIsLoading(false);
     // handle error message
   } else {
-    localStorage.setItem("token", data.jwt);
+    if (localStorageSupported()) localStorage.setItem("token", token);
     setUser(data.user);
     toggleModal();
   }
 };
 
 export const autoLogin = async ({ setUser }) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    const options = { headers: { Authorization: `Bearer ${token}` } };
-    const response = await fetch(`${version}/auto_login`, options);
-    const data = await response.json();
-    setUser(data);
+  if (localStorageSupported()) {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      const options = { headers: { Authorization: `Bearer ${token}` } };
+      const response = await fetch(`${version}/auto_login`, options);
+      const data = await response.json();
+      setUser(data);
+    }
   }
 }
 
-export const handleLogout = ({ setUser }) => {
+export const logoutUser = ({ setUser }) => {
   setUser({});
-  localStorage.removeItem("token");
+  if (localStorageSupported()) localStorage.removeItem("token");
 };
 
 export const getUser = async ({ setUser, id }) => {
@@ -52,7 +66,7 @@ export const createUser = async ({ setUser, params, setIsLoading, toggleModal })
     setIsLoading(false);
     // handle error message
   } else {
-    localStorage.setItem("token", data.jwt);
+    if (localStorageSupported()) localStorage.setItem("token", token);
     setUser(data.user);
     toggleModal();
   }
@@ -80,6 +94,6 @@ export const deleteUser = async ({ setUser, id, setIsLoading }) => {
     setIsLoading(false);
     // handle error message
   } else {
-    handleLogout(setUser);
+    logoutUser(setUser);
   }
 };

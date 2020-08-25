@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { UserContext } from "contexts/userContext";
 import Button from "components/button";
 import { getColor } from "helpers/palette";
-import { handleLogout } from "actions/user";
+import { logoutUser } from "actions/user";
 
 const NavContainer = styled.nav`
   height: 4rem;
@@ -23,7 +23,7 @@ const Header = ({ toggleLogin, toggleSignUp, toggleDrawer, toggleStepper }) => {
       <Button fn={toggleStepper} content="Stepper" />
       {user.id ? (
         <>
-          <Button content="Logout" fn={() => handleLogout({ setUser })} />
+          <Button content="Logout" fn={() => logoutUser({ setUser })} />
           <h1 style={{ color: "white" }}>Welcome {user.name}</h1>
         </>
       ) : (
