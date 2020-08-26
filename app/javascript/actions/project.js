@@ -5,13 +5,18 @@ const headers = {
   Accept: "application/json",
 };
 
-const projectAPI = async ({ setState, id='', params, method='GET' }) => {
+const projectAPI = async ({ setState=() => {}, id='', params, method='GET' }) => {
   const options = { method, headers };
   if (params) options.body = JSON.stringify(params);
 
   const response = await fetch(`${version}/projects/${id}`, options);
   const projects = await response.json();
-  setState(projects);
+  
+  if (projects.error) {
+    return projects.error;
+  } else {
+    setState(projects);
+  }
 };
 
 const APICall = (options) => {

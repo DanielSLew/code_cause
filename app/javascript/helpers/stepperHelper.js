@@ -41,7 +41,7 @@ export const createStepperData = (instructions) => {
 
 export const instructions = [
   {
-    tag: "Q0",
+    tag: "description",
     frames: [
       {
         type: "message",
@@ -70,9 +70,9 @@ export const instructions = [
       },
       {
         type: "singleQA",
-        title: "Tell us About your Project Idea",
-        question: "What's the elevator pitch?",
-        tag: "Q0",
+        title: "The Pitch",
+        question: "Tell us about your project idea, What's the elevator pitch?",
+        tag: "description",
         details:
           "Try to sum the project up in one sentence. If you can't, odds are the idea is too complex and needs to be refined. Take your time to get to the core of what your project is. ",
         help:
@@ -163,7 +163,7 @@ export const instructions = [
     frames: [
       {
         type: "singleQA",
-        title: "The Contribution",
+        title: "The Helpers",
         question: "What do you need from a contributor?",
         details:
           "Try to be as specific as possible, feel free to skip this step if you are unsure.",
@@ -219,16 +219,36 @@ export const instructions = [
     ],
   },
   {
-    tag: "Q6",
+    tag: "name",
     frames: [
       {
         type: "singleQA",
-        title: "Extra Details",
+        title: "The Name",
+        question: "What do you want to call your project?",
+        details:
+          "Write something descriptive that will catch someone's eye.",
+        help: "Try to think of something better than Jane Doe's Project!",
+        tag: "name",
+        input: {
+          type: "textBox",
+          validation: [
+            { type: "not-empty", response: "Please type in a response" },
+          ],
+        },
+      },
+    ],
+  },
+  {
+    tag: "Q7",
+    frames: [
+      {
+        type: "singleQA",
+        title: "The Extra Details",
         question: "Is there anything else you want to include that you haven't already?",
         details:
           "Here is where you can run wild and add anything else you think someone will want to know if they're helping with this project.",
         help: "This helps us get an idea of an endpoint to your project. Some projects could also have multiple endpoints.",
-        tag: "Q6",
+        tag: "Q7",
         input: {
           type: "textBox",
           validation: [

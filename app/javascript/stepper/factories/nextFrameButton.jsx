@@ -4,6 +4,8 @@ import styled from "styled-components";
 import Button from "components/button";
 import { StepperContext } from "contexts/StepperContext";
 
+import { createProject } from "actions/project";
+
 const NextFrameBtn = styled(Button)``;
 
 const getBtnText = (type) => {
@@ -16,7 +18,7 @@ const getBtnText = (type) => {
 };
 
 const NextFrameButton = ({ exitStepper }) => {
-  const { currentInputValue, next, addData, currentFrame } = useContext(
+  const { currentInputValue, next, addData, currentFrame, stepperData } = useContext(
     StepperContext
   );
 
@@ -27,6 +29,18 @@ const NextFrameButton = ({ exitStepper }) => {
     next();
   };
   const completeForm = (e) => {
+    console.log(stepperData);
+    // TODO: setting the created project as the current project state
+    //       so that when a project is created we can navigate to the new project
+    const setProjectState = () => {};
+    const params = {
+      name: stepperData[5].answer,
+      description: stepperData[0].answer,
+      body: stepperData.map(({ question, answer }) => ({ question, answer }))
+    };
+
+    createProject({ setState: setProjectState, method: 'POST', params });
+
     exitStepper();
   };
   const completeBtnFn = (type) => {

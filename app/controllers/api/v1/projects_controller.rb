@@ -22,8 +22,8 @@ class Api::V1::ProjectsController < ApplicationController
   end
 
   def create
+    byebug
     project = Project.new(project_params)
-    
     if project.save
       render json: project, status: :created
     else
@@ -61,6 +61,6 @@ class Api::V1::ProjectsController < ApplicationController
   end
 
   def project_params
-    params.permit(:name, :body, :description)
+    params.require(:project).permit(:name, :description, body: [:question, :answer])
   end
 end
