@@ -17,7 +17,6 @@ class Api::V1::ProjectsController < ApplicationController
         creators: @project.creators,
         votes: @project.votes,
         tags: @project.tags,
-        body: @project.body
       }
     end
   end
