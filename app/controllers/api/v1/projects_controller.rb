@@ -12,7 +12,7 @@ class Api::V1::ProjectsController < ApplicationController
       render json: {}, status: :not_found
     else
       render json: { 
-        **@project.as_json, 
+        **@project.as_json,
         contributors: @project.contributors,
         creators: @project.creators,
         votes: @project.votes,
@@ -22,10 +22,13 @@ class Api::V1::ProjectsController < ApplicationController
   end
 
   def create
-    byebug
-    project = Project.new(project_params)
+    new_project_params = project_params
+    new_project_params['body'] = new_project_params['body'].to_json
+    
+    project = Project.new(new_project_params)
+
     if project.save
-      render json: project, status: :created
+      render json: project.to_json, status: :created
     else
       render json: project.errors, status: :bad_request
     end
@@ -35,7 +38,7 @@ class Api::V1::ProjectsController < ApplicationController
     if !@project
       render json: {}, status: :not_found
     elsif @project.update(project_params)
-      render json: @project
+      render json: @project.to_json
     else
       render json: @project.errors, status: :bad_request
     end

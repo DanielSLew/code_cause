@@ -39,6 +39,7 @@ const ProjectsPage = () => {
   useEffect(() => {
     getProjects({ setState: setProjects });
   }, []);
+  debugger;
 
   const sideMenu = (
     <TabMenu
