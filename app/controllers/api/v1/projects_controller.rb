@@ -16,13 +16,13 @@ class Api::V1::ProjectsController < ApplicationController
         contributors: @project.contributors,
         creators: @project.creators,
         votes: @project.votes,
-        tags: @project.tags
+        tags: @project.tags,
+        body: @project.body
       }
     end
   end
 
   def create
-    byebug
     project = Project.new(project_params)
     if project.save
       render json: project, status: :created

@@ -4,12 +4,7 @@ import styled from "styled-components";
 import { getColor } from "helpers/palette";
 
 export const StyledButton = styled.button`
-  /* padding: 0.25rem 1rem; */
   border-radius: ${(props) => props.radius};
-  /* display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative; */
   outline: none;
   font-weight: 500;
   font-size: ${(props) => props.fontSize};

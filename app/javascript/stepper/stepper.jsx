@@ -22,8 +22,7 @@ const StepperWindow = styled.div`
     flex-direction: column;
     overflow-y: auto;
   }
-  .x-button {
-  }
+ 
 `;
 
 const Stepper = ({ toggleStepper }) => {
