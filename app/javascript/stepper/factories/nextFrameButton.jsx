@@ -42,7 +42,6 @@ const NextFrameButton = ({ exitStepper }) => {
       body: stepperData.map(({ question, answer }) => ({ question, answer })),
     };
 
-    console.log(params);
     createProject({ setState: setProjectState, method: "POST", params });
 
     exitStepper();
