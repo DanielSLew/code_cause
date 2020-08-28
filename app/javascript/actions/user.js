@@ -24,7 +24,6 @@ export const loginUser = async ({
 }) => {
   setIsLoading(true);
   const options = { method: "POST", headers, body: JSON.stringify(params) };
-
   const response = await fetch(`${version}/login`, options);
   const data = await response.json();
   if (data.error) {
@@ -77,7 +76,7 @@ export const createUser = async ({
     setIsLoading(false);
     console.warn(data.error);
   } else {
-    if (localStorageSupported()) localStorage.setItem("token", token);
+    if (localStorageSupported()) localStorage.setItem("token", data.jwt);
     setUser(data.user);
     toggleModal();
   }
