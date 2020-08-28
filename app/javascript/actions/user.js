@@ -19,7 +19,6 @@ const localStorageSupported = () => {
 export const loginUser = async ({ setUser, params, setIsLoading, toggleModal }) => {
   setIsLoading(true); 
   const options = { method: 'POST', headers, body: JSON.stringify(params) };
-
   const response = await fetch(`${version}/login`, options);
   const data = await response.json();
   if (data.error) {
@@ -66,7 +65,7 @@ export const createUser = async ({ setUser, params, setIsLoading, toggleModal })
     setIsLoading(false);
     // handle error message
   } else {
-    if (localStorageSupported()) localStorage.setItem("token", token);
+    if (localStorageSupported()) localStorage.setItem("token", data.jwt);
     setUser(data.user);
     toggleModal();
   }
