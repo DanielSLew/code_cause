@@ -44,6 +44,7 @@ function Login({ toggleModal }) {
   };
 
   const disableLogin = () => {
+    debugger;
     return !(validUsername() && validPassword()) || isLoading;
   };
 

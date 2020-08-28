@@ -35,4 +35,8 @@ class Project < ApplicationRecord
   def add_contributor(user)
     ProjectPermission.add(self.id, 'Contributor', user.id)   
   end
+
+  def remove_contributor(user)
+    ProjectPermission.remove(self.id, user.id)   
+  end
 end

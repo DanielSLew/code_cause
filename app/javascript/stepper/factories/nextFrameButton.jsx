@@ -40,10 +40,7 @@ const NextFrameButton = ({ exitStepper }) => {
     const params = {
       name: stepperData[5].answer,
       description: stepperData[0].answer,
-      creator: {
-        username: user.name,
-        id: user.id,
-      },
+      creator: user.id,
       body: stepperData.map(({ question, answer }) => ({ question, answer })),
     };
 
