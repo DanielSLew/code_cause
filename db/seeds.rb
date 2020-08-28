@@ -19,7 +19,8 @@ Ut rhoncus lectus justo, quis tincidunt nisi pharetra et. Ut eu imperdiet elit, 
 
 Etiam vitae porta lacus. Morbi fringilla tristique placerat. Quisque vel elementum neque. Proin rutrum lacus quis tellus tempus, et efficitur sapien gravida. Integer in massa sit amet nisi iaculis ultricies malesuada non nisi. Maecenas nec laoreet nunc. Sed interdum odio sit amet nibh imperdiet, malesuada venenatis sapien sodales. Sed quis luctus lectus, blandit porta enim. Maecenas non ultricies ligula, id porttitor nisi. Integer nec luctus ex."
 
-project_body_lengths = [100, 500, 1000, 1500, 2000, 2500, 3068]
+project_body_lengths = [10, 50, 100, 300, 500, 1000]
+project_description_lengths = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
 skill_tags = ["Logo", "Server", "SEO", "Interactive UI", "Database", "Design", "SVG Graphics", "React", "HTML", "Rails", "CSS", "Javascript", "Ruby", "COBOL", "Layout Design", "UX/UI"]
 type_tags = ["Mobile App", "Browser App", "Desktop App", "IoT", "Raspberry Py", "Static page", "Multiplatform App", "Blog", "E-Commerce Site", "DApp"]
@@ -58,12 +59,33 @@ NUM_PROJECTS_USERS.times do |i|
     organization: "Organization#{i}"
   )
   # Create x amount of projects w/ varying body lengths
+  description = project_body[0..project_description_lengths.sample]
+  project_params = [ 
+    {"question" => "Tell us about your project idea, What's the elevator pitch?",
+      "answer" => description},
+    {"question" => "What problem is your project going to solve.",
+      "answer" => project_body[0..project_body_lengths.sample]},
+    {"question" => "What ideas do you have about solving this problem?",
+      "answer" => project_body[0..project_body_lengths.sample]},
+    {"question" => "What do you need from a contributor?",
+      "answer" => project_body[0..project_body_lengths.sample]},
+    {"question" => "What kind of experience do you have working with developers?",
+      "answer" => project_body[0..project_body_lengths.sample]},
+    {"question" => "What will your project look like when it's finished?",
+      "answer" => project_body[0..project_body_lengths.sample]},
+    {"question" => "What do you want to call your project?",
+      "answer" => "Project-#{i}"},
+    {"question" => "Is there anything else you want to include that you haven't already?",
+      "answer" => project_body[0..project_body_lengths.sample]}
+  ]
+  # project_questions = %Q([{"question":"Tell us about your project idea, What's the elevator pitch?","answer":"#{project_body[0..project_description_lengths.sample]}"},{"question":"What problem is your project going to solve.","answer":"#{project_body[0..project_body_lengths.sample]}"},{"question":"What ideas do you have about solving this problem?","answer":"#{project_body[0..project_body_lengths.sample]}"},{"question":"What do you need from a contributor?","answer":"#{project_body[0..project_body_lengths.sample]}"},{"question":"What kind of experience do you have working with developers?","answer":"#{project_body[0..project_body_lengths.sample]}"},{"question":"What will your project look like when it's finished?","answer":"#{project_body[0..project_body_lengths.sample]}"},{"question":"What do you want to call your project?","answer":"#{project_body[0..project_name_lengths.sample]}"},{"question":"Is there anything else you want to include that you haven't already?","answer":"#{project_body[0..project_body_lengths.sample]}"}])
   Project.create(
     name: "Project-#{i}",
-    description: "This is a description for project#{i}",
-    body: project_body[0..project_body_lengths.sample],
+    description: description,
+    body: project_params.to_json,
   )
 end
+
 
 # Gather all users in an array
 users = User.all
