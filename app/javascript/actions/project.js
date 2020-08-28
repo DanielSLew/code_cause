@@ -1,17 +1,23 @@
-import { version } from 'helpers/api';
+import { version } from "helpers/api";
 
 const headers = {
   "Content-Type": "application/json",
   Accept: "application/json",
 };
 
-const projectAPI = async ({ setState=() => {}, id='', params, method='GET' }) => {
+const projectAPI = async ({
+  setState = () => {},
+  id = "",
+  params,
+  method = "GET",
+}) => {
   const options = { method, headers };
   if (params) options.body = JSON.stringify(params);
 
   const response = await fetch(`${version}/projects/${id}`, options);
+
   const projects = await response.json();
-  
+
   if (projects.error) {
     return projects.error;
   } else {
@@ -37,7 +43,7 @@ export const deleteProject = APICall;
 //     },
 //   });
 //   const project = await response.json();
-//   setState(project); 
+//   setState(project);
 // }
 
 // export const createProject = async ({ setState, params }) => {
@@ -50,7 +56,7 @@ export const deleteProject = APICall;
 //     body: JSON.stringify(params),
 //   });
 //   const project = await response.json();
-//   setState(project); 
+//   setState(project);
 // }
 
 // export const updateProject = async ({ setState, params }) => {
@@ -63,7 +69,7 @@ export const deleteProject = APICall;
 //     body: JSON.stringify(params),
 //   });
 //   const project = await response.json();
-//   setState(project); 
+//   setState(project);
 // }
 
 // export const deleteProject = async ({ setState, id }) => {
@@ -75,5 +81,5 @@ export const deleteProject = APICall;
 //     },
 //   });
 //   const project = await response.json();
-//   setState(project); 
+//   setState(project);
 // }

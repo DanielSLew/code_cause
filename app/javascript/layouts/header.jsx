@@ -12,6 +12,7 @@ const NavContainer = styled.nav`
   position: sticky;
   top: 0;
   background-color: ${getColor("dark")};
+  z-index: 10;
 `;
 
 const Header = ({ toggleLogin, toggleSignUp, toggleDrawer, toggleStepper }) => {

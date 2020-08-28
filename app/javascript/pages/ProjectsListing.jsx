@@ -5,32 +5,42 @@ import { Heart, Tag, Search } from "react-feather";
 import TabMenu from "components/tabMenu";
 import Tab from "components/tab";
 import Layout from "layouts/layout";
-import Project from "components/project";
+import ProjectListItem from "components/projectListItem";
 
 import { getColor } from "helpers/palette";
 import { getProjects } from "actions/project";
 
-
 const ListingSpace = styled.div`
   display: flex;
+  margin: 0 auto;
+  margin-top: 2.5rem;
+  display: flex;
   justify-content: flex-start;
+  align-items: flex-start;
   .listing-section {
+    position: relative;
+    z-index: 0;
     .listing-title {
-      font-size: calc(28px + 0.5vh + 1.5vw);
-      margin-bottom: 4vh;
+      font-size: 3rem;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
     }
   }
-  .tag-section {
+  /* .tag-section {
     margin-right: 6vw;
-    background-color: ${getColor("white")};
+    background-color: ${getColor(
+    "lightgrey"
+  )};
 
     aside {
       height: 20rem;
       border-radius: 4px;
       width: 10rem;
-      border: 1px solid ${getColor("lightBorder")};
+      border: 1px solid ${getColor(
+    "lightBorder"
+  )};
     }
-  }
+  } */
 `;
 
 const ProjectsPage = () => {
@@ -39,7 +49,6 @@ const ProjectsPage = () => {
   useEffect(() => {
     getProjects({ setState: setProjects });
   }, []);
-  debugger;
 
   const sideMenu = (
     <TabMenu
@@ -75,11 +84,11 @@ const ProjectsPage = () => {
           </aside>
         </section> */}
         <section className="listing-section">
-          <h1 className="listing-title">{projects.length} Projects!</h1>
+          <h1 className="listing-title">{projects.length} Active Projects</h1>
           <ul>
             {projects &&
               projects.map((project) => {
-                return <Project project={project} key={project.id} />;
+                return <ProjectListItem project={project} key={project.id} />;
               })}
           </ul>
         </section>
