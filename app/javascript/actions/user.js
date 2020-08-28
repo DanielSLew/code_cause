@@ -25,7 +25,7 @@ export const loginUser = async ({ setUser, params, setIsLoading, toggleModal }) 
     setIsLoading(false);
     // handle error message
   } else {
-    if (localStorageSupported()) localStorage.setItem("token", token);
+    if (localStorageSupported()) localStorage.setItem("token", data.jwt);
     setUser(data.user);
     toggleModal();
   }
