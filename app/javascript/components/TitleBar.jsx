@@ -26,7 +26,6 @@ const StyledTitleBar = styled.div`
 
 const TitleBar = ({ title, creators }) => {
   //TODO make creators into a singular creator
-  debugger;
   const creator = creators.length ? creators[0].name : "unknownCreator";
   return (
     <StyledTitleBar>
