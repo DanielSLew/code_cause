@@ -61,11 +61,11 @@ const Paper = styled.div`
   }
 `;
 
-const WhitePaper = ({ title, fields = [] }) => {
+const WhitePaper = ({ title, fields }) => {
   return (
     <>
       <Paper>
-        {title && <h2 className="paper-title">{title}</h2>}
+        {title && <h2 className="paper-title">{title || "Error: No Title"}</h2>}
         {fields.map((field) => {
           return (
             <div key={field.question} className={"section"}>

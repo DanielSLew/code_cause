@@ -9,7 +9,7 @@ import {
   VALID_EMAIL_REGEX,
 } from "helpers/validations";
 
-import { createUser } from 'actions/user';
+import { createUser } from "actions/user";
 
 import UserForm from "layouts/userForm";
 
@@ -64,74 +64,70 @@ function SignUpPage({ toggleModal }) {
     return formFields.passwordConfirm === formFields.password;
   };
 
-  if (user.id) {
-    return <Redirect to="/projects" />;
-  } else {
-    return (
-      <Modal toggleModal={toggleModal}>
-        <UserForm title="Sign Up">
-          <Input
-            id="name"
-            name="name"
-            placeholder="Enter username..."
-            label="Username"
-            type="text"
-            valid={validUsername()}
-            fn={handleFormFieldChange}
-          />
-          <Input
-            id="email"
-            name="email"
-            placeholder="example@example.com..."
-            label="Email"
-            type="email"
-            valid={validEmail()}
-            fn={handleFormFieldChange}
-          />
-          <TextBox
-            id="bio"
-            name="bio"
-            placeholder="Enter bio..."
-            label="Write a bit about yourself"
-            fn={handleFormFieldChange}
-          />
-          <Input
-            id="organization"
-            name="organization"
-            placeholder="Enter your organization..."
-            label="Organization"
-            type="text"
-            valid={true}
-            fn={handleFormFieldChange}
-          />
-          <Input
-            id="password"
-            name="password"
-            placeholder="Enter password..."
-            label="Password"
-            type="password"
-            valid={validPassword()}
-            fn={handleFormFieldChange}
-          />
-          <Input
-            id="passwordConfirm"
-            name="passwordConfirm"
-            placeholder="Confirm your password..."
-            label="Confirm password"
-            type="password"
-            valid={passwordsMatch()}
-            fn={handleFormFieldChange}
-          />
-          <Button
-            value="submit"
-            content="Sign Up"
-            disabled={disableSignup()}
-            fn={handleSubmit}
-          />
-        </UserForm>
-      </Modal>
-    );
-  }
+  return (
+    <Modal toggleModal={toggleModal}>
+      <UserForm title="Sign Up">
+        <Input
+          id="name"
+          name="name"
+          placeholder="Enter username..."
+          label="Username"
+          type="text"
+          valid={validUsername()}
+          fn={handleFormFieldChange}
+        />
+        <Input
+          id="email"
+          name="email"
+          placeholder="example@example.com..."
+          label="Email"
+          type="email"
+          valid={validEmail()}
+          fn={handleFormFieldChange}
+        />
+        <TextBox
+          id="bio"
+          name="bio"
+          placeholder="Enter bio..."
+          label="Write a bit about yourself"
+          fn={handleFormFieldChange}
+        />
+        <Input
+          id="organization"
+          name="organization"
+          placeholder="Enter your organization..."
+          label="Organization"
+          type="text"
+          valid={true}
+          fn={handleFormFieldChange}
+        />
+        <Input
+          id="password"
+          name="password"
+          placeholder="Enter password..."
+          label="Password"
+          type="password"
+          valid={validPassword()}
+          fn={handleFormFieldChange}
+        />
+        <Input
+          id="passwordConfirm"
+          name="passwordConfirm"
+          placeholder="Confirm your password..."
+          label="Confirm password"
+          type="password"
+          valid={passwordsMatch()}
+          fn={handleFormFieldChange}
+        />
+        <Button
+          value="submit"
+          content="Sign Up"
+          disabled={disableSignup()}
+          fn={handleSubmit}
+        />
+      </UserForm>
+    </Modal>
+  );
 }
 
 export default SignUpPage;

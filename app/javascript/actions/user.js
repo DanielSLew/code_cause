@@ -39,8 +39,8 @@ export const loginUser = async ({
 export const autoLogin = async ({ setUser }) => {
   if (localStorageSupported()) {
     const token = localStorage.getItem("token");
-
     if (token) {
+      console.log("fired");
       const options = { headers: { Authorization: `Bearer ${token}` } };
       const response = await fetch(`${version}/auto_login`, options);
       const data = await response.json();

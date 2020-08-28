@@ -1,12 +1,11 @@
 import React, { useState, useContext } from "react";
-import { Redirect } from "react-router-dom";
 
 import { UserContext } from "contexts/userContext";
 import {
   VALID_PASSWORD_LENGTH,
   VALID_USERNAME_LENGTH,
 } from "helpers/validations";
-import { loginUser } from 'actions/user';
+import { loginUser } from "actions/user";
 
 import Modal from "components/modal";
 import Input from "components/input";
@@ -48,40 +47,36 @@ function Login({ toggleModal }) {
     return !(validUsername() && validPassword()) || isLoading;
   };
 
-  if (user.id) {
-    return <Redirect to="/projects" />;
-  } else {
-    return (
-      <Modal toggleModal={toggleModal}>
-        <UserForm title="Login">
-          <Input
-            id="username"
-            name="username"
-            placeholder="Enter username..."
-            label="Username"
-            type="text"
-            valid={validUsername()}
-            fn={handleUsernameChange}
-          />
-          <Input
-            id="password"
-            name="password"
-            placeholder="Enter password..."
-            label="Password"
-            type="password"
-            valid={validPassword()}
-            fn={handlePasswordChange}
-          />
-          <Button
-            value="submit"
-            content="Login"
-            disabled={disableLogin()}
-            fn={handleSubmit}
-          />
-        </UserForm>
-      </Modal>
-    );
-  }
+  return (
+    <Modal toggleModal={toggleModal}>
+      <UserForm title="Login">
+        <Input
+          id="username"
+          name="username"
+          placeholder="Enter username..."
+          label="Username"
+          type="text"
+          valid={validUsername()}
+          fn={handleUsernameChange}
+        />
+        <Input
+          id="password"
+          name="password"
+          placeholder="Enter password..."
+          label="Password"
+          type="password"
+          valid={validPassword()}
+          fn={handlePasswordChange}
+        />
+        <Button
+          value="submit"
+          content="Login"
+          disabled={disableLogin()}
+          fn={handleSubmit}
+        />
+      </UserForm>
+    </Modal>
+  );
 }
 
 export default Login;

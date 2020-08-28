@@ -74,7 +74,6 @@ const ListItem = styled.li`
 `;
 
 const ProjectListItem = ({ project }) => {
-  console.log(project);
   return (
     <ListItem>
       <div className="info-wrapper">

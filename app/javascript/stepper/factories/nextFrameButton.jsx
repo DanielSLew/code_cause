@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
+import { UserContext } from "contexts/userContext";
 import styled from "styled-components";
 
 import Button from "components/button";
 import { StepperContext } from "contexts/StepperContext";
-
 import { createProject } from "actions/project";
 
 const NextFrameBtn = styled(Button)``;
@@ -25,6 +25,7 @@ const NextFrameButton = ({ exitStepper }) => {
     currentFrame,
     stepperData,
   } = useContext(StepperContext);
+  const { user } = useContext(UserContext);
 
   const { type } = currentFrame;
   const completeStep = (e) => {
@@ -39,6 +40,10 @@ const NextFrameButton = ({ exitStepper }) => {
     const params = {
       name: stepperData[5].answer,
       description: stepperData[0].answer,
+      creator: {
+        username: user.name,
+        id: user.id,
+      },
       body: stepperData.map(({ question, answer }) => ({ question, answer })),
     };
 

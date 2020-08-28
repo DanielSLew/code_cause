@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 
+import { UserContext } from "contexts/userContext";
 import { StepperContext } from "contexts/StepperContext";
 import FrameFactory from "stepper/factories/frameFactory";
 import StepperMap from "stepper/stepperMap";
 import Background from "stepper/background";
 import { getColor } from "helpers/palette";
+import { User } from "react-feather";
 
 const StepperWindow = styled.div`
   height: 100%;
@@ -22,13 +24,13 @@ const StepperWindow = styled.div`
     flex-direction: column;
     overflow-y: auto;
   }
- 
 `;
 
 const Stepper = ({ toggleStepper }) => {
   const { currentFrame } = useContext(StepperContext);
+  const { user } = useContext(UserContext);
   const [isOpening, setIsOpening] = useState(true);
-
+  console.log(user);
   const exitStepper = (e) => {
     setIsOpening(false);
     setTimeout(() => toggleStepper(), 200);
@@ -56,10 +58,14 @@ const Stepper = ({ toggleStepper }) => {
     >
       <StepperWindow>
         <div className="stepper-panel">
-          <FrameFactory
-            frameType={currentFrame.type}
-            exitStepper={exitStepper}
-          />
+          {user.id ? (
+            <FrameFactory
+              frameType={currentFrame.type}
+              exitStepper={exitStepper}
+            />
+          ) : (
+            <h2>Must be signed in</h2>
+          )}
         </div>
         <StepperMap />
       </StepperWindow>
