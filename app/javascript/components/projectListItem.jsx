@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import Tag from "components/tag";
@@ -80,7 +81,9 @@ const ProjectListItem = ({ project }) => {
         <span className="vote-wrapper">
           <Votes />
         </span>
-        <h2 className="project-name">{project.name}</h2>
+        <Link to={`project/${project.id}`} className="project-name">
+          {project.name}
+        </Link>
         <p className="project-description">{project.description}</p>
         <div className="bottom-section">
           <div className="project-tag">

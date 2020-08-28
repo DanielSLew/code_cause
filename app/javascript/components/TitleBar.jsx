@@ -24,14 +24,15 @@ const StyledTitleBar = styled.div`
   }
 `;
 
-//TODO make the text spans into links
-const TitleBar = ({ title, subtitle }) => {
+const TitleBar = ({ title, creators }) => {
+  //TODO make creators into a singular creator
+  const creator = creators.length ? creator[0] : "unknownCreator";
   return (
     <StyledTitleBar>
       <h3 className="dir-container">
         {" "}
-        <span className="dir-title">{title || "Placeholder"}/</span>
-        <span className="dir-subtitle">{subtitle || "sub-placeholder"}</span>
+        <span className="dir-title">{title || "unknownTitle"}/</span>
+        <span className="dir-subtitle">{creator}</span>
       </h3>
     </StyledTitleBar>
   );

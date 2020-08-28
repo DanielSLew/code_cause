@@ -68,15 +68,16 @@ const WhitePaper = ({ title, fields = [] }) => {
         {title && <h2 className="paper-title">{title}</h2>}
         {fields.map((field) => {
           return (
-            <div key={field.id} className={field.type}>
+            <div key={field.question} className={"section"}>
               <h3
-                className={`${
-                  field.type === "section" ? "heading" : "sub-heading"
-                } editable`}
+                className="heading"
+                // className={`${
+                //   field.type === "section" ? "heading" : "sub-heading"
+                // } editable`}
               >
-                {field.label}
+                {field.question}
               </h3>
-              <p className="response editable">{field.content}</p>
+              <p className="response editable">{field.answer}</p>
             </div>
           );
         })}

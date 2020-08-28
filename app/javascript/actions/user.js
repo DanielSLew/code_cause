@@ -1,9 +1,9 @@
-import { version } from 'helpers/api';
+import { version } from "helpers/api";
 
 const headers = {
   "Content-Type": "application/json",
   Accept: "application/json",
-}
+};
 
 const localStorageSupported = () => {
   try {
@@ -14,11 +14,16 @@ const localStorageSupported = () => {
   } catch (err) {
     return false;
   }
-}
+};
 
-export const loginUser = async ({ setUser, params, setIsLoading, toggleModal }) => {
-  setIsLoading(true); 
-  const options = { method: 'POST', headers, body: JSON.stringify(params) };
+export const loginUser = async ({
+  setUser,
+  params,
+  setIsLoading,
+  toggleModal,
+}) => {
+  setIsLoading(true);
+  const options = { method: "POST", headers, body: JSON.stringify(params) };
 
   const response = await fetch(`${version}/login`, options);
   const data = await response.json();
@@ -43,7 +48,7 @@ export const autoLogin = async ({ setUser }) => {
       setUser(data);
     }
   }
-}
+};
 
 export const logoutUser = ({ setUser }) => {
   setUser({});
@@ -54,17 +59,23 @@ export const getUser = async ({ setUser, id }) => {
   const response = await fetch(`${version}/users/${id}`);
   const data = await response.json();
   setUser(data.user);
-}
+};
 
-export const createUser = async ({ setUser, params, setIsLoading, toggleModal }) => {
+export const createUser = async ({
+  setUser,
+  params,
+  setIsLoading,
+  toggleModal,
+}) => {
   setIsLoading(true);
-  const options = { method: 'POST', headers, body: JSON.stringify(params) };
+  const options = { method: "POST", headers, body: JSON.stringify(params) };
+  console.log(options);
 
   const response = await fetch(`${version}/users`, options);
   const data = await response.json();
   if (data.error) {
     setIsLoading(false);
-    // handle error message
+    console.warn(data.error);
   } else {
     if (localStorageSupported()) localStorage.setItem("token", token);
     setUser(data.user);
@@ -73,7 +84,7 @@ export const createUser = async ({ setUser, params, setIsLoading, toggleModal })
 };
 
 export const updateUser = async ({ setUser, id, params, setIsLoading }) => {
-  const options = { method: 'PUT', headers, body: JSON.stringify(params) };
+  const options = { method: "PUT", headers, body: JSON.stringify(params) };
 
   const response = await fetch(`${version}/users/${id}`, options);
   const data = await response.json();
@@ -86,7 +97,7 @@ export const updateUser = async ({ setUser, id, params, setIsLoading }) => {
 };
 
 export const deleteUser = async ({ setUser, id, setIsLoading }) => {
-  const options = { method: 'DELETE', headers };
+  const options = { method: "DELETE", headers };
 
   const response = await fetch(`${version}/users/${id}`, options);
   const data = await response.json();

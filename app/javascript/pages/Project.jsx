@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { MessageSquare, List, Users } from "react-feather";
 
+import { useParams } from "react-router-dom";
 import { getProject } from "actions/project";
 import Layout from "layouts/layout";
 import TitleBar from "components/TitleBar";
 import TabMenu from "components/tabMenu";
 import Tab from "components/tab";
 import WhitePaper from "layouts/whitePaper";
-import { getFakeQAs } from "helpers/seedData";
-
-const id = 51;
 
 const ProjectsPage = () => {
   const [project, setProject] = useState(null);
+  const { projectId } = useParams();
+  console.log(projectId);
   useEffect(() => {
-    getProject({ setState: setProject, id });
+    getProject({ setState: setProject, id: parseInt(projectId) });
   }, []);
-
-  console.log(project === null ? "loading" : project.body);
+  console.log(project);
   const sideMenu = (
     <TabMenu
       options={[
@@ -42,12 +41,15 @@ const ProjectsPage = () => {
 
   return (
     <Layout sideMenu={sideMenu}>
-      {/* {project !== null && (
+      {project !== null && (
         <>
-          <TitleBar />
-          <WhitePaper fields={JSON.parse(project.body)} title={project.name} />
+          <TitleBar title={project.name} creators={project.creators} />
+          <WhitePaper
+            fields={JSON.parse(project.body) || null}
+            title={project.name}
+          />
         </>
-      )} */}
+      )}
     </Layout>
   );
 };
