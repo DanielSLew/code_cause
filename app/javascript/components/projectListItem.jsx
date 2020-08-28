@@ -80,7 +80,7 @@ const ProjectListItem = ({ project }) => {
         <span className="vote-wrapper">
           <Votes />
         </span>
-        <Link to={`project/${project.id}`} className="project-name">
+        <Link to={`projects/${project.id}`} className="project-name">
           {project.name}
         </Link>
         <p className="project-description">{project.description}</p>

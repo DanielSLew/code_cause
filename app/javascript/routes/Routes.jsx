@@ -15,7 +15,7 @@ const Routes = () => (
     <Switch>
       <Route path="/" exact component={HomePage} />
       <Route path="/projects" exact component={ProjectsListingPage} />
-      <Route path="/project/:projectId" component={ProjectPage} />
+      <Route path="/projects/:projectId" component={ProjectPage} />
       <Route path="/user" exact component={UserPage} />
     </Switch>
   </Router>

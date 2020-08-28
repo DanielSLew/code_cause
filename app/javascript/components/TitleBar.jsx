@@ -26,7 +26,7 @@ const StyledTitleBar = styled.div`
 
 const TitleBar = ({ title, creators }) => {
   //TODO make creators into a singular creator
-  const creator = creators.length ? creator[0] : "unknownCreator";
+  const creator = creators.length ? creators[0].name : "unknownCreator";
   return (
     <StyledTitleBar>
       <h3 className="dir-container">
