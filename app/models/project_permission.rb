@@ -8,7 +8,7 @@ class ProjectPermission < ApplicationRecord
   validates :role, inclusion: { in: ROLES }
 
   def self.find_users(project_id, role=nil)
-    find(User, 'project', project_id, role)
+    find(User, 'project', project_id, role).select(User::SECURE_DETAILS)
   end
 
   def self.find_projects(user_id, role=nil)
@@ -23,7 +23,7 @@ class ProjectPermission < ApplicationRecord
 
   def self.remove(project_id, user_id)
     permission = self.find_by project_id: project_id, user_id: user_id
-    permission.destroy
+    !!(permission && permission.destroy)
   end
 
   private

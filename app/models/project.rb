@@ -5,30 +5,35 @@ class Project < ApplicationRecord
   has_many :project_tags
   has_many :tags, through: :project_tags, dependent: :destroy
 
-  has_many :votes, dependent: :destroy
+  has_many :votes, -> { select('votes.id, votes.project_id, votes.user_id') }, dependent: :destroy, class_name: "Vote", foreign_key: 'project_id'
   has_many :messages
 
   validates :name, length: { minimum: 3 }
   validates :description, length: { minimum: 10 }
   validates :body, presence: true
 
-  # Returns projects w/ votes and tags as array of vote objects
-  # TODO: See if possible to return only the vote count instead of array of objs
   def self.all_with_tags_votes
-    Project.includes(:tags, :votes)
+    projects = Project.includes(:tags, :votes)
            .select('projects.*, COUNT(*) as tags, COUNT(*) as votes')
-           .group('projects.id')
+           .group('projects.id').as_json
+
+    # Map votes into an array of user_ids
+    projects.each do |project|
+      project["votes"].map! do |vote| 
+        vote["user_id"]
+      end
+    end
   end
 
-  def creators
-    ProjectPermission.find_users(self.id, 'Creator')
+  def creator
+    ProjectPermission.find_users(self.id, 'Creator').first
   end
 
   def contributors
     ProjectPermission.find_users(self.id, 'Contributor')
   end
 
-  def add_creator(user)
+  def set_creator(user)
     ProjectPermission.add(self.id, 'Creator', user.id)
   end
 
@@ -40,3 +45,4 @@ class Project < ApplicationRecord
     ProjectPermission.remove(self.id, user.id)   
   end
 end
+

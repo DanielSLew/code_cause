@@ -19,15 +19,15 @@ class Api::V1::ProjectsController < ApplicationController
     new_project_params = project_params
     new_project_params['body'] = new_project_params['body'].to_json
 
-    project = Project.new(new_project_params)
+    @project = Project.new(new_project_params)
+    user = User.find(params[:creator])
 
-    if project.save
-      user = User.find(params[:creator])
-      project.add_creator(user)
+    if user && @project.save
+      @project.set_creator(user)
 
-      render json: project, status: :created
+      render json: project_details, status: :created
     else
-      render json: project.errors, status: :bad_request
+      render json: @project.errors, status: :bad_request
     end
   end
 
@@ -35,7 +35,7 @@ class Api::V1::ProjectsController < ApplicationController
     if !@project
       render json: {}, status: :not_found
     elsif @project.update(project_params)
-      render json: @project
+      render json: project_details
     else
       render json: @project.errors, status: :bad_request
     end
@@ -91,8 +91,8 @@ class Api::V1::ProjectsController < ApplicationController
     { 
       **@project.as_json, 
       contributors: @project.contributors,
-      creators: @project.creators,
-      votes: @project.votes,
+      creator: @project.creator,
+      votes: @project.votes.map { |vote| vote.user_id },
       tags: @project.tags,
     }
   end

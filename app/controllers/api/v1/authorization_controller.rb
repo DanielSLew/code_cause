@@ -13,6 +13,7 @@ class Api::V1::AuthorizationController < ApplicationController
 
   def auto_login
     @user = session_user
+    byebug
     if @user
       render json: user_with_projects
     else
